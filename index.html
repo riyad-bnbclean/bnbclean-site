@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BNB Clean — Spotless turnovers for your Airbnb</title>
+<meta name="description" content="Book a trusted cleaner for your short-stay rental in a few taps. You choose who cleans your place — by profile, rating and reviews. Available across Australia." />
+<meta name="theme-color" content="#14532d" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#14532d; --green-d:#0f3d22; --green-soft:#eaf3ec;
+    --cream:#faf7f0; --cream-2:#f4eee1; --cream-3:#efe9dc;
+    --gold:#c19a3f; --gold-soft:#e6c878;
+    --ink:#15331f; --body:#5c5647; --muted:#8a8270;
+    --line:#e7e0d2;
+    --display:'Bricolage Grotesque',sans-serif;
+    --sans:'Inter',-apple-system,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--cream);color:var(--body);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:var(--display);color:var(--ink);font-weight:600;line-height:1.12;letter-spacing:-.02em}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-weight:500;font-size:15px;padding:13px 26px;border-radius:12px;cursor:pointer;border:none;transition:transform .15s ease,background .15s ease}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-primary{background:var(--green);color:#fff}
+  .btn-primary:hover{background:var(--green-d)}
+  .btn-ghost{background:#fff;color:var(--green);border:1px solid var(--line)}
+  .btn-gold{background:var(--gold-soft);color:#3d2f08}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:20px;color:var(--green)}
+  .logo .mark{width:34px;height:34px;border-radius:10px;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
+  .logo .gold{color:var(--gold)}
+  .nav-links{display:flex;align-items:center;gap:28px;font-size:15px;color:var(--body)}
+  .nav-links a{transition:color .15s}
+  .nav-links a:hover{color:var(--green)}
+  @media(max-width:720px){.nav-links a:not(.btn){display:none}}
+
+  /* HERO */
+  .hero{text-align:center;padding:80px 0 70px}
+  .eyebrow{display:inline-block;font-size:12px;letter-spacing:2.5px;color:var(--gold);background:#f3ecdb;padding:7px 18px;border-radius:30px;margin-bottom:26px;font-weight:500}
+  .hero h1{font-size:clamp(38px,6vw,62px);margin-bottom:20px}
+  .hero h1 .rot{color:var(--gold);transition:opacity .25s;display:inline-block;text-align:left;min-width:6.2em}
+  .hero .lead{font-size:clamp(16px,2vw,19px);max-width:520px;margin:0 auto 34px}
+  .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:54px}
+  .video{max-width:760px;margin:0 auto;aspect-ratio:16/9;background:var(--green);border-radius:20px;border:1px solid var(--green-d);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#cfe6d8;overflow:hidden}
+  .video .play{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;font-size:30px;margin-bottom:14px;transition:background .2s}
+  .video:hover .play{background:rgba(255,255,255,.25)}
+  .video small{color:#7fae92;font-size:13px;margin-top:4px}
+
+  /* SECTIONS */
+  section{padding:76px 0}
+  .sec-eyebrow{text-align:center;font-size:12px;letter-spacing:2px;color:var(--gold);font-weight:500;margin-bottom:10px;text-transform:uppercase}
+  .sec-title{text-align:center;font-size:clamp(26px,4vw,38px);margin-bottom:14px}
+  .sec-sub{text-align:center;font-size:16px;color:var(--body);max-width:520px;margin:0 auto 46px}
+
+  /* HOW */
+  #how{background:var(--cream)}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:900px;margin:0 auto}
+  .step{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px 24px;text-align:center}
+  .step .num{font-family:var(--display);font-size:14px;color:var(--gold);font-weight:600;letter-spacing:1px}
+  .step .ic{width:52px;height:52px;border-radius:14px;background:var(--green-soft);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:24px;margin:14px auto 16px}
+  .step h3{font-size:19px;margin-bottom:8px}
+  .step p{font-size:14px;color:var(--body)}
+
+  /* INSTALL */
+  #install{background:var(--cream-2)}
+  .install-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:760px;margin:0 auto 22px}
+  .plat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px}
+  .plat-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .plat-head .ic{width:42px;height:42px;border-radius:12px;background:var(--green-soft);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:22px}
+  .plat-head h3{font-size:20px}
+  .plat ol{list-style:none;counter-reset:s}
+  .plat li{counter-increment:s;position:relative;padding:11px 0 11px 42px;font-size:15px;color:var(--ink);border-bottom:1px solid #f1ece0}
+  .plat li:last-child{border-bottom:none}
+  .plat li::before{content:counter(s);position:absolute;left:0;top:9px;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;font-family:var(--display)}
+  .note{max-width:760px;margin:0 auto 34px;background:#fbf3df;border:1px solid #ecd9a8;border-radius:14px;padding:16px 20px;display:flex;gap:12px}
+  .note .ic{color:var(--gold);font-size:20px;flex-shrink:0;margin-top:2px}
+  .note p{font-size:13.5px;color:#7a663a;line-height:1.6}
+  .install-cta{text-align:center}
+
+  /* ABOUT */
+  #about{background:var(--cream)}
+  .story{max-width:640px;margin:0 auto 44px;text-align:center;font-size:19px;line-height:1.75;color:var(--ink);font-family:var(--display);font-weight:400}
+  .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;max-width:840px;margin:0 auto 50px}
+  .feat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px}
+  .feat .ic{font-size:26px;color:var(--gold);margin-bottom:12px}
+  .feat h3{font-size:17px;margin-bottom:6px}
+  .feat p{font-size:14px;color:var(--body)}
+  .cta-box{max-width:600px;margin:0 auto;background:var(--green);border-radius:22px;padding:44px 32px;text-align:center}
+  .cta-box .ic{font-size:30px;color:var(--gold-soft);margin-bottom:14px}
+  .cta-box h3{color:#fff;font-size:24px;margin-bottom:10px}
+  .cta-box p{color:#bcd6c5;font-size:15px;max-width:400px;margin:0 auto 22px}
+
+  /* FOOTER */
+  footer{background:var(--cream-3);padding:36px 0;text-align:center;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+  footer .logo{justify-content:center;margin-bottom:12px;font-size:18px}
+
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.hero h1 .rot{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#top" class="logo"><span class="mark">⌂</span>BNB <span class="gold">&nbsp;Clean</span></a>
+    <div class="nav-links">
+      <a href="#top">Home</a>
+      <a href="#install">Install</a>
+      <a href="#about">About</a>
+      <a class="btn btn-primary" href="https://bnbclean.vercel.app">Launch app</a>
+    </div>
+  </div>
+</nav>
+
+<div id="top"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">AUSTRALIA</span>
+    <h1>Spotless turnovers for<br>your <span class="rot">Airbnb</span></h1>
+    <p class="lead">Book a trusted cleaner in a few taps. You choose who cleans your place — by profile, rating and reviews.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://bnbclean.vercel.app">Get started →</a>
+      <a class="btn btn-ghost" href="#how">How it works</a>
+    </div>
+    <a class="video" href="#" onclick="return false;" aria-label="Intro video coming soon">
+      <span class="play">▶</span>
+      <span>Your animated intro video goes here</span>
+      <small>(cartoon-style explainer — drop in a YouTube link later)</small>
+    </a>
+  </div>
+</header>
+
+<section id="how">
+  <div class="wrap">
+    <p class="sec-eyebrow reveal">How it works</p>
+    <h2 class="sec-title reveal">Three taps to a clean place</h2>
+    <p class="sec-sub reveal">No phone calls, no chasing. Post, pick, relax.</p>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01</div><div class="ic">✎</div><h3>Post your job</h3><p>Tell us the property, the date and the type of clean. It takes a minute.</p></div>
+      <div class="step reveal"><div class="num">02</div><div class="ic">★</div><h3>Choose your cleaner</h3><p>Browse cleaners who applied and pick the one you trust, by rating and reviews.</p></div>
+      <div class="step reveal"><div class="num">03</div><div class="ic">✓</div><h3>Relax</h3><p>Pay securely in the app. Your cleaner takes care of the rest.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <p class="sec-eyebrow reveal">Install</p>
+    <h2 class="sec-title reveal">Install it like a real app</h2>
+    <p class="sec-sub reveal">Add BNB Clean to your home screen in seconds — no app store needed.</p>
+
+    <div class="install-grid">
+      <div class="plat reveal">
+        <div class="plat-head"><span class="ic"></span><h3>On iPhone</h3></div>
+        <ol>
+          <li>Open the app in Safari</li>
+          <li>Tap the Share button</li>
+          <li>Choose “Add to Home Screen”</li>
+          <li>Tap Add — done!</li>
+        </ol>
+      </div>
+      <div class="plat reveal">
+        <div class="plat-head"><span class="ic">▲</span><h3>On Android</h3></div>
+        <ol>
+          <li>Open the app in Chrome</li>
+          <li>Tap the menu (⋮ top right)</li>
+          <li>Choose “Install app”</li>
+          <li>Confirm — done!</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="note reveal">
+      <span class="ic">ⓘ</span>
+      <p>Some Android phones (like Samsung) may show a notice that the app was “built for an older version of Android.” This is normal for web apps — just tap “Install anyway.” BNB Clean is completely safe.</p>
+    </div>
+
+    <div class="install-cta reveal">
+      <a class="btn btn-primary" href="https://bnbclean.vercel.app">↗ Open the app</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <p class="sec-eyebrow reveal">About us</p>
+    <h2 class="sec-title reveal">An app for the people</h2>
+    <p class="story reveal">BNB Clean was built to be useful and fair to everyone — hosts who need a spotless place, and cleaners who deserve honest, on-time pay. We started small, in our own community, with a simple belief: a good clean and an honest wage should be easy to arrange. This is just the beginning.</p>
+
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="ic">◷</div><h3>Live cleaning timer</h3><p>Track a clean in real time and extend it on the spot when you need more.</p></div>
+      <div class="feat reveal"><div class="ic">▭</div><h3>Instant payouts</h3><p>Faster, automatic payments so cleaners get paid without the wait.</p></div>
+      <div class="feat reveal"><div class="ic">◎</div><h3>Beyond one city</h3><p>We’re growing across Australia, one community at a time.</p></div>
+    </div>
+
+    <div class="cta-box reveal">
+      <div class="ic">✉</div>
+      <h3>Tell us your story</h3>
+      <p>Share your experience and the changes you’d love to see in BNB Clean.</p>
+      <a class="btn btn-gold" href="mailto:riyad.edim@gmail.com?subject=My%20BNB%20Clean%20experience">Write to us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo"><span class="mark">⌂</span>BNB <span class="gold">&nbsp;Clean</span></div>
+    BNB Clean · Australia · made for hosts and cleaners
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var words=["Airbnb","rental","holiday home","property"],i=0,el=document.querySelector(".rot");
+    if(el){setInterval(function(){i=(i+1)%words.length;el.style.opacity=0;setTimeout(function(){el.textContent=words[i];el.style.opacity=1;},250);},2200);}
+  })();
+  (function(){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.12});
+    document.querySelectorAll(".reveal").forEach(function(n){io.observe(n);});
+  })();
+</script>
+
+</body>
+</html>
