@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" type="image/png" href="icon-192.png" />
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>BNB Clean — Spotless turnovers for your Airbnb</title>
@@ -49,11 +50,7 @@
   .hero h1{font-size:clamp(38px,6vw,62px);margin-bottom:20px}
   .hero h1 .rot{color:var(--gold);transition:opacity .25s;display:inline-block;text-align:left;min-width:6.2em}
   .hero .lead{font-size:clamp(16px,2vw,19px);max-width:520px;margin:0 auto 34px}
-  .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:54px}
-  .video{max-width:760px;margin:0 auto;aspect-ratio:16/9;background:var(--green);border-radius:20px;border:1px solid var(--green-d);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#cfe6d8;overflow:hidden}
-  .video .play{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;font-size:30px;margin-bottom:14px;transition:background .2s}
-  .video:hover .play{background:rgba(255,255,255,.25)}
-  .video small{color:#7fae92;font-size:13px;margin-top:4px}
+  .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 
   /* SECTIONS */
   section{padding:76px 0}
@@ -112,7 +109,7 @@
 
 <nav>
   <div class="wrap nav-in">
-    <a href="#top" class="logo"><span class="mark">⌂</span>BNB <span class="gold">&nbsp;Clean</span></a>
+    <a href="#top" class="logo"><span class="mark">⌂</span><span>BNB<span class="gold" style="margin-left:.12em">Clean</span></span></a>
     <div class="nav-links">
       <a href="#top">Home</a>
       <a href="#install">Install</a>
@@ -133,11 +130,6 @@
       <a class="btn btn-primary" href="https://bnbclean.vercel.app">Get started →</a>
       <a class="btn btn-ghost" href="#how">How it works</a>
     </div>
-    <a class="video" href="#" onclick="return false;" aria-label="Intro video coming soon">
-      <span class="play">▶</span>
-      <span>Your animated intro video goes here</span>
-      <small>(cartoon-style explainer — drop in a YouTube link later)</small>
-    </a>
   </div>
 </header>
 
@@ -215,7 +207,7 @@
 
 <footer>
   <div class="wrap">
-    <div class="logo"><span class="mark">⌂</span>BNB <span class="gold">&nbsp;Clean</span></div>
+    <div class="logo"><span class="mark">⌂</span><span>BNB<span class="gold" style="margin-left:.12em">Clean</span></span></div>
     BNB Clean · Australia · made for hosts and cleaners
   </div>
 </footer>
