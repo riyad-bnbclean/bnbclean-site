@@ -1,227 +1,1092 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="icon-192.png" />
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>BNB Clean — Spotless turnovers for your Airbnb</title>
-<meta name="description" content="Book a trusted cleaner for your short-stay rental in a few taps. You choose who cleans your place — by profile, rating and reviews. Available across Australia." />
-<meta name="theme-color" content="#14532d" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BNB Clean · Airbnb turnover cleaning in Cairns, Palm Cove &amp; Port Douglas</title>
+<meta name="description" content="Book a trusted, vetted cleaner for your Airbnb in Far North Queensland. And if they ever cancel, we replace them immediately. No subscription, pay per clean.">
+<meta property="og:title" content="BNB Clean · Spotless turnovers for your Airbnb">
+<meta property="og:description" content="Trusted cleaners for short-term rentals in Cairns, Palm Cove & Port Douglas. If your cleaner cancels, we replace them immediately.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bnbclean.au">
+<meta property="og:image" content="https://bnbclean.au/icon-192.png">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --green:#14532d; --green-d:#0f3d22; --green-soft:#eaf3ec;
-    --cream:#faf7f0; --cream-2:#f4eee1; --cream-3:#efe9dc;
-    --gold:#c19a3f; --gold-soft:#e6c878;
-    --ink:#15331f; --body:#5c5647; --muted:#8a8270;
-    --line:#e7e0d2;
-    --display:'Bricolage Grotesque',sans-serif;
-    --sans:'Inter',-apple-system,system-ui,sans-serif;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:var(--sans);background:var(--cream);color:var(--body);line-height:1.65;-webkit-font-smoothing:antialiased}
-  h1,h2,h3{font-family:var(--display);color:var(--ink);font-weight:600;line-height:1.12;letter-spacing:-.02em}
-  a{text-decoration:none;color:inherit}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
-  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-weight:500;font-size:15px;padding:13px 26px;border-radius:12px;cursor:pointer;border:none;transition:transform .15s ease,background .15s ease}
-  .btn:hover{transform:translateY(-1px)}
-  .btn-primary{background:var(--green);color:#fff}
-  .btn-primary:hover{background:var(--green-d)}
-  .btn-ghost{background:#fff;color:var(--green);border:1px solid var(--line)}
-  .btn-gold{background:var(--gold-soft);color:#3d2f08}
+/* ============ TOKENS ============ */
+:root{
+  --green:#14532d;
+  --green-d:#0f3d22;
+  --green-soft:#eaf3ec;
+  --cream:#faf7f0;
+  --cream-2:#f4eee1;
+  --cream-3:#efe9dc;
+  --gold:#c19a3f;
+  --gold-soft:#e6c878;
+  --ink:#15331f;
+  --body:#5c5647;
+  --muted:#8a8270;
+  --line:#e7e0d2;
+  --r-sm:12px;
+  --r-md:16px;
+  --r-lg:22px;
+  --shadow:0 6px 24px rgba(21,51,31,.07);
+  --shadow-lg:0 14px 44px rgba(21,51,31,.12);
+  --font-display:'Bricolage Grotesque',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+}
 
-  /* NAV */
-  nav{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
-  .logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;font-size:20px;color:var(--green)}
-  .logo .mark{width:34px;height:34px;border-radius:10px;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
-  .logo .gold{color:var(--gold)}
-  .nav-links{display:flex;align-items:center;gap:28px;font-size:15px;color:var(--body)}
-  .nav-links a{transition:color .15s}
-  .nav-links a:hover{color:var(--green)}
-  @media(max-width:720px){.nav-links a:not(.btn){display:none}}
+/* ============ BASE ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{
+  font-family:var(--font-body);
+  color:var(--body);
+  background:var(--cream);
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3{font-family:var(--font-display);color:var(--ink);font-weight:600;line-height:1.15;letter-spacing:-.01em}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer}
+.container{width:min(1120px,92%);margin:0 auto}
+section{padding:clamp(64px,9vw,110px) 0}
 
-  /* HERO */
-  .hero{text-align:center;padding:80px 0 70px}
-  .eyebrow{display:inline-block;font-size:12px;letter-spacing:2.5px;color:var(--gold);background:#f3ecdb;padding:7px 18px;border-radius:30px;margin-bottom:26px;font-weight:500}
-  .hero h1{font-size:clamp(38px,6vw,62px);margin-bottom:20px}
-  .hero h1 .rot{color:var(--gold);transition:opacity .25s;display:inline-block;text-align:left;min-width:6.2em}
-  .hero .lead{font-size:clamp(16px,2vw,19px);max-width:520px;margin:0 auto 34px}
-  .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
 
-  /* SECTIONS */
-  section{padding:76px 0}
-  .sec-eyebrow{text-align:center;font-size:12px;letter-spacing:2px;color:var(--gold);font-weight:500;margin-bottom:10px;text-transform:uppercase}
-  .sec-title{text-align:center;font-size:clamp(26px,4vw,38px);margin-bottom:14px}
-  .sec-sub{text-align:center;font-size:16px;color:var(--body);max-width:520px;margin:0 auto 46px}
+.eyebrow{
+  display:inline-block;
+  font-family:var(--font-display);
+  font-size:12px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);
+  background:rgba(193,154,63,.1);
+  border:1px solid rgba(193,154,63,.3);
+  padding:7px 14px;border-radius:999px;
+  margin-bottom:20px;
+}
+.section-title{font-size:clamp(28px,4.5vw,44px);margin-bottom:14px}
+.section-lead{font-size:clamp(16px,2vw,19px);color:var(--body);max-width:560px}
+.center{text-align:center}
+.center .section-lead{margin-inline:auto}
 
-  /* HOW */
-  #how{background:var(--cream)}
-  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:900px;margin:0 auto}
-  .step{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px 24px;text-align:center}
-  .step .num{font-family:var(--display);font-size:14px;color:var(--gold);font-weight:600;letter-spacing:1px}
-  .step .ic{width:52px;height:52px;border-radius:14px;background:var(--green-soft);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:24px;margin:14px auto 16px}
-  .step h3{font-size:19px;margin-bottom:8px}
-  .step p{font-size:14px;color:var(--body)}
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;justify-content:center;
+  font-family:var(--font-display);font-weight:600;font-size:16px;
+  padding:14px 26px;border-radius:999px;border:2px solid transparent;
+  text-decoration:none;transition:transform .18s ease,background .18s ease,box-shadow .18s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn-green{background:var(--green);color:#fff;box-shadow:0 6px 18px rgba(20,83,45,.25)}
+.btn-green:hover{background:var(--green-d)}
+.btn-white{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-white:hover{border-color:var(--gold)}
+.btn-gold{background:var(--gold);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.btn-gold:hover{background:#ad8834}
 
-  /* INSTALL */
-  #install{background:var(--cream-2)}
-  .install-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:760px;margin:0 auto 22px}
-  .plat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px}
-  .plat-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-  .plat-head .ic{width:42px;height:42px;border-radius:12px;background:var(--green-soft);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:22px}
-  .plat-head h3{font-size:20px}
-  .plat ol{list-style:none;counter-reset:s}
-  .plat li{counter-increment:s;position:relative;padding:11px 0 11px 42px;font-size:15px;color:var(--ink);border-bottom:1px solid #f1ece0}
-  .plat li:last-child{border-bottom:none}
-  .plat li::before{content:counter(s);position:absolute;left:0;top:9px;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;font-family:var(--display)}
-  .note{max-width:760px;margin:0 auto 34px;background:#fbf3df;border:1px solid #ecd9a8;border-radius:14px;padding:16px 20px;display:flex;gap:12px}
-  .note .ic{color:var(--gold);font-size:20px;flex-shrink:0;margin-top:2px}
-  .note p{font-size:13.5px;color:#7a663a;line-height:1.6}
-  .install-cta{text-align:center}
+/* ============ PROGRESS BAR ============ */
+#progress{
+  position:fixed;top:0;left:0;height:3px;width:0;
+  background:linear-gradient(90deg,var(--gold),var(--gold-soft));
+  z-index:1001;transition:width .1s linear;
+}
 
-  /* ABOUT */
-  #about{background:var(--cream)}
-  .story{max-width:640px;margin:0 auto 44px;text-align:center;font-size:19px;line-height:1.75;color:var(--ink);font-family:var(--display);font-weight:400}
-  .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;max-width:840px;margin:0 auto 50px}
-  .feat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px}
-  .feat .ic{font-size:26px;color:var(--gold);margin-bottom:12px}
-  .feat h3{font-size:17px;margin-bottom:6px}
-  .feat p{font-size:14px;color:var(--body)}
-  .cta-box{max-width:600px;margin:0 auto;background:var(--green);border-radius:22px;padding:44px 32px;text-align:center}
-  .cta-box .ic{font-size:30px;color:var(--gold-soft);margin-bottom:14px}
-  .cta-box h3{color:#fff;font-size:24px;margin-bottom:10px}
-  .cta-box p{color:#bcd6c5;font-size:15px;max-width:400px;margin:0 auto 22px}
+/* ============ NAV ============ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(250,247,240,.72);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent;
+  transition:background .3s ease,border-color .3s ease,box-shadow .3s ease;
+}
+nav.scrolled{background:rgba(250,247,240,.94);border-color:var(--line);box-shadow:0 2px 16px rgba(21,51,31,.05)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{
+  width:38px;height:38px;border-radius:11px;background:var(--green);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.logo-text{font-family:var(--font-display);font-weight:600;font-size:20px;letter-spacing:-.01em}
+.logo-text .g{color:var(--green)}
+.logo-text .a{color:var(--gold)}
+.nav-links{display:none;gap:30px;list-style:none}
+.nav-links a{
+  text-decoration:none;font-size:15px;font-weight:500;color:var(--body);
+  transition:color .18s ease;
+}
+.nav-links a:hover{color:var(--green)}
+.nav-cta{padding:10px 20px;font-size:15px}
 
-  /* FOOTER */
-  footer{background:var(--cream-3);padding:36px 0;text-align:center;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
-  footer .logo{justify-content:center;margin-bottom:12px;font-size:18px}
+.nav-burger{
+  position:relative;display:block;flex-shrink:0;
+  width:40px;height:40px;
+  background:none;border:none;border-radius:10px;
+  cursor:pointer;
+}
+.nav-burger:hover{background:rgba(20,83,45,.07)}
+.nav-burger span{
+  position:absolute;left:9px;right:9px;height:2px;
+  background:var(--green);border-radius:2px;
+  transition:transform .3s ease,opacity .3s ease;
+}
+.nav-burger span:nth-child(1){top:14px}
+.nav-burger span:nth-child(2){top:19px}
+.nav-burger span:nth-child(3){top:24px}
+.nav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(5px) rotate(45deg)}
+.nav-burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
 
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
-  .reveal.in{opacity:1;transform:none}
-  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.hero h1 .rot{transition:none}html{scroll-behavior:auto}}
+.mobile-menu{
+  position:fixed;top:68px;left:0;right:0;
+  background:var(--cream);
+  border-bottom:1px solid var(--gold-soft);
+  box-shadow:var(--shadow-lg);
+  padding:8px 0 28px;
+  transform:translateY(-14px);opacity:0;visibility:hidden;pointer-events:none;
+  transition:transform .28s ease,opacity .28s ease,visibility 0s linear .28s;
+  z-index:999;
+  max-height:calc(100vh - 68px);overflow-y:auto;
+}
+.mobile-menu.open{
+  transform:translateY(0);opacity:1;visibility:visible;pointer-events:auto;
+  transition:transform .28s ease,opacity .28s ease,visibility 0s linear 0s;
+}
+.mobile-menu-links{list-style:none;display:flex;flex-direction:column}
+.mobile-menu-links li{border-top:1px solid var(--line)}
+.mobile-menu-links a{
+  display:block;padding:18px 24px;
+  font-family:var(--font-display);font-weight:600;font-size:17px;
+  color:var(--ink);text-decoration:none;
+}
+.mobile-menu-links a:hover{color:var(--green);background:rgba(193,154,63,.08)}
+.mobile-menu-cta{margin:22px 24px 0;display:flex}
+
+@media(min-width:820px){.nav-links{display:flex}.nav-burger{display:none}.mobile-menu{display:none}}
+@media(max-width:819px){.nav-cta{display:none}}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;min-height:92vh;display:flex;align-items:center;
+  padding:130px 0 90px;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:-40px 0;z-index:0;
+  will-change:transform;
+}
+.hero-bg img{width:100%;height:100%;object-fit:cover}
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(250,247,240,.97) 0%,rgba(250,247,240,.9) 42%,rgba(250,247,240,.55) 72%,rgba(250,247,240,.25) 100%);
+}
+.hero .container{position:relative;z-index:1}
+.hero h1{
+  font-size:clamp(38px,6.5vw,66px);
+  max-width:14ch;margin-bottom:22px;
+}
+.hero h1 .w{display:inline-block;opacity:0;transform:translateY(18px)}
+.hero h1 .w.in{opacity:1;transform:none;transition:opacity .55s ease,transform .55s ease}
+#rotator{color:var(--gold);display:inline-block;min-width:5.2ch;transition:opacity .35s ease}
+#rotator.fade{opacity:0}
+.hero-lead{font-size:clamp(17px,2.2vw,20px);max-width:480px;margin-bottom:32px}
+.hero-btns{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:22px}
+.hero-note{font-size:14px;color:var(--muted)}
+.hero-note span{white-space:nowrap}
+
+/* ============ PROBLEM ============ */
+.bg-cream2{background:var(--cream-2)}
+.bg-cream{background:var(--cream)}
+.pain-grid{display:grid;gap:20px;margin-top:44px}
+@media(min-width:760px){.pain-grid{grid-template-columns:repeat(3,1fr)}}
+.pain-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-md);
+  padding:28px;box-shadow:var(--shadow);
+}
+.pain-icon{
+  width:46px;height:46px;border-radius:13px;background:var(--cream-2);
+  display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+}
+.pain-card h3{font-size:19px;margin-bottom:8px}
+.pain-card p{font-size:15px}
+
+/* ============ GUARANTEE ============ */
+.guarantee{background:var(--green);color:#eaf3ec;position:relative;overflow:hidden}
+.guarantee::before{
+  content:"";position:absolute;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(230,200,120,.14),transparent 70%);
+  top:-160px;right:-160px;pointer-events:none;
+}
+.guarantee-inner{
+  transform:scale(.96);opacity:0;
+  transition:transform .9s cubic-bezier(.22,.9,.3,1),opacity .9s ease;
+}
+.guarantee-inner.in{transform:scale(1);opacity:1}
+.guarantee .eyebrow{color:var(--gold-soft);background:rgba(230,200,120,.12);border-color:rgba(230,200,120,.3)}
+.guarantee h2{color:#fff;font-size:clamp(30px,5vw,50px);max-width:16ch;margin-bottom:18px}
+.guarantee-lead{font-size:clamp(16px,2vw,19px);color:rgba(234,243,236,.88);max-width:600px;margin-bottom:44px}
+.guarantee-grid{display:grid;gap:18px;margin-bottom:44px}
+@media(min-width:760px){.guarantee-grid{grid-template-columns:repeat(3,1fr)}}
+.guarantee-card{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(230,200,120,.25);
+  border-radius:var(--r-md);padding:26px;
+}
+.guarantee-card h3{color:var(--gold-soft);font-size:18px;margin-bottom:8px}
+.guarantee-card p{font-size:15px;color:rgba(234,243,236,.82)}
+
+/* ============ HOW IT WORKS ============ */
+.steps-grid{display:grid;gap:22px;margin-top:48px}
+@media(min-width:820px){.steps-grid{grid-template-columns:repeat(3,1fr)}}
+.step-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);
+  overflow:hidden;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.step-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.step-img{height:180px;overflow:hidden}
+.step-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.step-card:hover .step-img img{transform:scale(1.05)}
+.step-body{padding:26px}
+.step-num{
+  font-family:var(--font-display);font-weight:600;font-size:13px;
+  letter-spacing:.12em;color:var(--gold);margin-bottom:10px;
+}
+.step-card h3{font-size:20px;margin-bottom:8px}
+.step-card p{font-size:15px}
+
+/* ============ PRICING ============ */
+.pricing-grid{display:grid;gap:20px;margin:44px auto 0;max-width:860px}
+@media(min-width:720px){.pricing-grid{grid-template-columns:repeat(2,1fr)}}
+.price-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-md);
+  padding:30px 28px;box-shadow:var(--shadow);text-align:left;
+}
+.price-card h3{font-size:20px;margin-bottom:4px}
+.price-tag{font-size:14px;color:var(--muted);margin-bottom:20px}
+.price-rows{list-style:none}
+.price-rows li{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:14px 0;border-top:1px solid var(--line);font-size:15px;
+}
+.price-rows li span{color:var(--body)}
+.price-rows li b{
+  font-family:var(--font-display);font-weight:600;font-size:17px;
+  color:var(--green);white-space:nowrap;
+}
+.pricing-note{margin-top:30px;font-size:15px;max-width:640px;margin-inline:auto;text-align:center;color:var(--body)}
+.gold-box{
+  margin:26px auto 0;max-width:480px;text-align:center;
+  background:rgba(193,154,63,.1);border:1px solid rgba(193,154,63,.35);
+  border-radius:var(--r-sm);padding:14px 22px;
+  font-family:var(--font-display);font-weight:500;font-size:15px;color:#8a6c25;
+}
+
+/* ============ SERVICE AREA ============ */
+.area-wrap{display:grid;gap:44px;margin-top:44px}
+@media(min-width:880px){.area-wrap{grid-template-columns:1.05fr .95fr;align-items:start}}
+.area-list{list-style:none;display:grid;gap:12px;margin-top:6px}
+.area-list li{
+  display:flex;align-items:center;gap:12px;
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);
+  padding:14px 18px;font-weight:500;color:var(--ink);font-size:15px;
+}
+.tick{
+  width:24px;height:24px;border-radius:50%;background:var(--green-soft);
+  color:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.stats-row{display:flex;gap:34px;margin-top:30px;flex-wrap:wrap}
+.stat b{font-family:var(--font-display);font-weight:600;font-size:32px;color:var(--green);display:block;line-height:1.1}
+.stat span{font-size:13px;color:var(--muted)}
+.waitlist{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:32px;box-shadow:var(--shadow);
+}
+.waitlist h3{font-size:21px;margin-bottom:8px}
+.waitlist p{font-size:15px;margin-bottom:20px}
+.waitlist label{display:block;font-size:13px;font-weight:500;color:var(--ink);margin:14px 0 6px}
+.waitlist input{
+  width:100%;padding:13px 16px;border:1px solid var(--line);border-radius:var(--r-sm);
+  font-family:var(--font-body);font-size:15px;background:var(--cream);color:var(--ink);
+  transition:border-color .18s ease;
+}
+.waitlist input:focus{outline:none;border-color:var(--gold)}
+.waitlist button{width:100%;margin-top:20px;border:none}
+.waitlist-hint{font-size:12px;color:var(--muted);margin-top:12px;text-align:center}
+.waitlist-hint a{color:var(--green);font-weight:500;text-decoration:underline}
+.field-error{display:none;font-size:12.5px;color:#b3261e;margin-top:6px}
+.field-error.show{display:block}
+.waitlist input.invalid{border-color:#b3261e}
+.waitlist-success{
+  display:none;margin-top:18px;padding:14px 16px;
+  background:var(--green-soft);border:1px solid rgba(20,83,45,.25);
+  border-radius:var(--r-sm);color:var(--green-d);font-size:14px;line-height:1.5;
+}
+.waitlist-success.show{display:block}
+
+/* ============ STORY ============ */
+.story-wrap{display:grid;gap:40px;align-items:center;margin-top:10px}
+@media(min-width:880px){.story-wrap{grid-template-columns:1fr 1fr}}
+.story-img{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg);position:relative}
+.story-img img{width:100%;height:100%;min-height:320px;object-fit:cover;will-change:transform}
+.story-text p{margin-bottom:16px;font-size:16px}
+.story-sign{font-family:var(--font-display);font-weight:600;color:var(--green);font-size:17px;margin-top:8px}
+
+/* ============ CLEANERS ============ */
+.cleaners{background:var(--green-soft)}
+.cleaners-inner{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+@media(min-width:820px){
+  .cleaners-inner{flex-direction:row;align-items:center;justify-content:space-between;gap:44px}
+  .cleaners-inner .btn{flex-shrink:0}
+}
+.cleaners h2{font-size:clamp(26px,3.6vw,36px);margin-bottom:10px}
+.cleaners p{max-width:560px;font-size:16px}
+
+/* ============ FAQ ============ */
+.faq-list{max-width:760px;margin:44px auto 0;display:grid;gap:12px}
+.faq-item{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-md);
+  overflow:hidden;transition:box-shadow .2s ease;
+}
+.faq-item.open{box-shadow:var(--shadow)}
+.faq-q{
+  width:100%;background:none;border:none;text-align:left;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:20px 24px;
+  font-family:var(--font-display);font-weight:600;font-size:16px;color:var(--ink);
+}
+.faq-q .chev{
+  flex-shrink:0;width:26px;height:26px;border-radius:50%;
+  background:var(--cream-2);display:flex;align-items:center;justify-content:center;
+  transition:transform .3s ease;
+}
+.faq-item.open .chev{transform:rotate(180deg);background:var(--green-soft)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s ease;
+}
+.faq-a p{padding:0 24px 20px;font-size:15px}
+
+/* ============ INSTALL ============ */
+.install-grid{display:grid;gap:20px;margin-top:44px}
+@media(min-width:760px){.install-grid{grid-template-columns:repeat(2,1fr)}}
+.install-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:30px;box-shadow:var(--shadow);
+}
+.install-card h3{font-size:20px;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.install-card ol{list-style:none;display:grid;gap:14px}
+.install-card ol li{display:flex;gap:14px;align-items:flex-start;font-size:15px}
+.install-num{
+  flex-shrink:0;width:26px;height:26px;border-radius:50%;
+  background:var(--green-soft);color:var(--green);
+  font-family:var(--font-display);font-weight:600;font-size:13px;
+  display:flex;align-items:center;justify-content:center;margin-top:2px;
+}
+.install-card li b{color:var(--ink);font-weight:500}
+
+/* ============ FINAL CTA ============ */
+.final-cta{padding:clamp(50px,7vw,90px) 0}
+.final-card{
+  background:var(--green);border-radius:calc(var(--r-lg) + 6px);
+  padding:clamp(44px,7vw,80px) clamp(24px,6vw,80px);
+  text-align:center;position:relative;overflow:hidden;
+}
+.final-card::before{
+  content:"";position:absolute;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(230,200,120,.16),transparent 70%);
+  bottom:-180px;left:-140px;pointer-events:none;
+}
+.final-card h2{color:#fff;font-size:clamp(28px,4.5vw,44px);margin-bottom:14px}
+.final-card p{color:rgba(234,243,236,.85);font-size:17px;margin-bottom:32px}
+
+/* ============ FOOTER ============ */
+footer{background:var(--cream-3);padding:60px 0 34px;border-top:1px solid var(--line)}
+.footer-grid{display:grid;gap:36px;margin-bottom:44px}
+@media(min-width:760px){.footer-grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+.footer-col h4{
+  font-family:var(--font-display);font-weight:600;font-size:14px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:16px;
+}
+.footer-col ul{list-style:none;display:grid;gap:10px}
+.footer-col a{text-decoration:none;font-size:15px;color:var(--body);transition:color .18s ease}
+.footer-col a:hover{color:var(--green)}
+.footer-desc{font-size:14px;color:var(--muted);margin-top:14px;max-width:280px}
+.footer-bottom{
+  border-top:1px solid var(--line);padding-top:26px;
+  display:flex;flex-direction:column;gap:8px;
+  font-size:13px;color:var(--muted);
+}
+@media(min-width:760px){.footer-bottom{flex-direction:row;justify-content:space-between}}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ REDUCED MOTION ============ */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal,.guarantee-inner,.hero h1 .w{opacity:1!important;transform:none!important}
+  .hero-bg,.story-img img{transform:none!important}
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="wrap nav-in">
-    <a href="#top" class="logo"><span class="mark">⌂</span><span>BNB<span class="gold" style="margin-left:.12em">Clean</span></span></a>
-    <div class="nav-links">
-      <a href="#top">Home</a>
-      <a href="#install">Install</a>
-      <a href="#about">About</a>
-      <a class="btn btn-primary" href="https://app.bnbclean.au">Launch app</a>
-    </div>
+<div id="progress" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<nav id="nav" aria-label="Main navigation">
+  <div class="container nav-inner">
+    <a href="#top" class="logo" aria-label="BNB Clean home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#e6c878" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V19a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-8.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="logo-text"><span class="g">BNB</span> <span class="a">Clean</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <a class="btn btn-green nav-cta" href="https://app.bnbclean.au">Launch app</a>
+    <button class="nav-burger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
-<div id="top"></div>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul class="mobile-menu-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a class="btn btn-green mobile-menu-cta" href="https://app.bnbclean.au">Launch app</a>
+</div>
 
-<header class="hero">
-  <div class="wrap">
-    <span class="eyebrow">AUSTRALIA</span>
-    <h1>Spotless turnovers for<br>your <span class="rot">Airbnb</span></h1>
-    <p class="lead">Book a trusted cleaner in a few taps. You choose who cleans your place — by profile, rating and reviews.</p>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="https://app.bnbclean.au">Get started →</a>
-      <a class="btn btn-ghost" href="#how">How it works</a>
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-bg" data-parallax="0.12">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=70&auto=format&fit=crop" alt="Bright, spotless holiday rental living room with white walls and natural light" fetchpriority="high">
+  </div>
+  <div class="container">
+    <span class="eyebrow">Now in Cairns · Palm Cove · Port Douglas</span>
+    <h1 id="heroTitle">
+      <span class="w">Spotless</span> <span class="w">turnovers</span> <span class="w">for</span> <span class="w">your</span> <span class="w"><span id="rotator">Airbnb</span></span>
+    </h1>
+    <p class="hero-lead">Book a trusted cleaner in a few taps. And if they ever cancel, we replace them. Immediately.</p>
+    <div class="hero-btns">
+      <a class="btn btn-green" href="https://app.bnbclean.au">Get started →</a>
+      <a class="btn btn-white" href="#how">How it works</a>
     </div>
+    <p class="hero-note"><span>No subscription</span> · <span>Pay per clean</span> · <span>Cancel up to 24h before</span></p>
   </div>
 </header>
 
-<section id="how">
-  <div class="wrap">
-    <p class="sec-eyebrow reveal">How it works</p>
-    <h2 class="sec-title reveal">Three taps to a clean place</h2>
-    <p class="sec-sub reveal">No phone calls, no chasing. Post, pick, relax.</p>
-    <div class="steps">
-      <div class="step reveal"><div class="num">01</div><div class="ic">✎</div><h3>Post your job</h3><p>Tell us the property, the date and the type of clean. It takes a minute.</p></div>
-      <div class="step reveal"><div class="num">02</div><div class="ic">★</div><h3>Choose your cleaner</h3><p>Browse cleaners who applied and pick the one you trust, by rating and reviews.</p></div>
-      <div class="step reveal"><div class="num">03</div><div class="ic">✓</div><h3>Relax</h3><p>Pay securely in the app. Your cleaner takes care of the rest.</p></div>
+<main>
+
+<!-- ============ PROBLEM ============ -->
+<section class="bg-cream2" id="problem">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">The problem</span>
+      <h2 class="section-title">A no-show can cost you a 5-star rating</h2>
+      <p class="section-lead">Your cleaner cancels the night before a check-in. You spend the morning calling around. Your guests walk into a place that isn't ready, and the review they leave stays online forever. Every host knows this fear.</p>
     </div>
-  </div>
-</section>
-
-<section id="install">
-  <div class="wrap">
-    <p class="sec-eyebrow reveal">Install</p>
-    <h2 class="sec-title reveal">Install it like a real app</h2>
-    <p class="sec-sub reveal">Add BNB Clean to your home screen in seconds — no app store needed.</p>
-
-    <div class="install-grid">
-      <div class="plat reveal">
-        <div class="plat-head"><span class="ic"></span><h3>On iPhone</h3></div>
-        <ol>
-          <li>Open the app in Safari</li>
-          <li>Tap the Share button</li>
-          <li>Choose “Add to Home Screen”</li>
-          <li>Tap Add — done!</li>
-        </ol>
+    <div class="pain-grid" data-stagger>
+      <div class="pain-card reveal">
+        <div class="pain-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#c19a3f" stroke-width="2"/><path d="M12 7v5l3 3" stroke="#c19a3f" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Last-minute cancellations</h3>
+        <p>Your cleaner drops out, and you're on your own, often just hours before check-in.</p>
       </div>
-      <div class="plat reveal">
-        <div class="plat-head"><span class="ic">▲</span><h3>On Android</h3></div>
-        <ol>
-          <li>Open the app in Chrome</li>
-          <li>Tap the menu (⋮ top right)</li>
-          <li>Choose “Install app”</li>
-          <li>Confirm — done!</li>
-        </ol>
+      <div class="pain-card reveal">
+        <div class="pain-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h4l2 5-2.5 1.5a12 12 0 0 0 5 5L16 12l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2Z" stroke="#c19a3f" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Chasing people by phone</h3>
+        <p>Texts, calls, voicemails, no answer. Your afternoon disappears into your phone.</p>
+      </div>
+      <div class="pain-card reveal">
+        <div class="pain-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.9L12 16.4l-5.2 2.8 1-5.9-4.3-4.1 5.9-.9L12 3Z" stroke="#c19a3f" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Reviews that stick</h3>
+        <p>One bad turnover can follow your listing for months and cost you bookings.</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="note reveal">
-      <span class="ic">ⓘ</span>
-      <p>Some Android phones (like Samsung) may show a notice that the app was “built for an older version of Android.” This is normal for web apps — just tap “Install anyway.” BNB Clean is completely safe.</p>
-    </div>
-
-    <div class="install-cta reveal">
-      <a class="btn btn-primary" href="https://app.bnbclean.au">↗ Open the app</a>
+<!-- ============ GUARANTEE ============ -->
+<section class="guarantee" id="guarantee">
+  <div class="container">
+    <div class="guarantee-inner" id="guaranteeInner">
+      <span class="eyebrow">Our promise</span>
+      <h2>If your cleaner cancels, we replace them.</h2>
+      <p class="guarantee-lead">BNB Clean isn't one cleaner. It's a network of vetted, independent cleaners across your area. If someone pulls out, your job is instantly re-listed to the whole network. You don't have to manage a thing.</p>
+      <div class="guarantee-grid" data-stagger>
+        <div class="guarantee-card reveal">
+          <h3>A network, not one person</h3>
+          <p>Multiple vetted cleaners in your area, not a single point of failure.</p>
+        </div>
+        <div class="guarantee-card reveal">
+          <h3>Instant re-listing</h3>
+          <p>If someone drops out, the job goes back out to the network right away.</p>
+        </div>
+        <div class="guarantee-card reveal">
+          <h3>You stay in control</h3>
+          <p>You always choose who cleans your place. Profiles, ratings, your call.</p>
+        </div>
+      </div>
+      <a class="btn btn-gold" href="#how">See how it works</a>
     </div>
   </div>
 </section>
 
-<section id="about">
-  <div class="wrap">
-    <p class="sec-eyebrow reveal">About us</p>
-    <h2 class="sec-title reveal">An app for the people</h2>
-    <p class="story reveal">BNB Clean was built to be useful and fair to everyone — hosts who need a spotless place, and cleaners who deserve honest, on-time pay. We started small, in our own community, with a simple belief: a good clean and an honest wage should be easy to arrange. This is just the beginning.</p>
-
-    <div class="feat-grid">
-      <div class="feat reveal"><div class="ic">◷</div><h3>Live cleaning timer</h3><p>Track a clean in real time and extend it on the spot when you need more.</p></div>
-      <div class="feat reveal"><div class="ic">▭</div><h3>Instant payouts</h3><p>Faster, automatic payments so cleaners get paid without the wait.</p></div>
-      <div class="feat reveal"><div class="ic">◎</div><h3>Beyond one city</h3><p>We’re growing across Australia, one community at a time.</p></div>
+<!-- ============ HOW IT WORKS ============ -->
+<section class="bg-cream" id="how">
+  <div class="container center">
+    <div class="reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title">Three taps to a clean place</h2>
+      <p class="section-lead">No phone calls, no chasing. Post, pick, relax.</p>
     </div>
-
-    <div class="cta-box reveal">
-      <div class="ic">✉</div>
-      <h3>Tell us your story</h3>
-      <p>Share your experience and the changes you’d love to see in BNB Clean.</p>
-      <a class="btn btn-gold" href="mailto:riyad.edim@gmail.com?subject=My%20BNB%20Clean%20experience">Write to us</a>
+    <div class="steps-grid" data-stagger>
+      <div class="step-card reveal">
+        <div class="step-img">
+          <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&q=70&auto=format&fit=crop" alt="Bright, tidy kitchen in a holiday rental" loading="lazy" decoding="async">
+        </div>
+        <div class="step-body">
+          <div class="step-num">01 · POST YOUR JOB</div>
+          <h3>Post your job</h3>
+          <p>Tell us the property, the date and the type of clean. It takes a minute.</p>
+        </div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-img">
+          <img src="https://images.unsplash.com/photo-1585417238790-f6d290d6490c?w=800&q=70&auto=format&fit=crop" alt="Cleaner wiping a surface with a blue cloth and spray bottle" loading="lazy" decoding="async">
+        </div>
+        <div class="step-body">
+          <div class="step-num">02 · CHOOSE YOUR CLEANER</div>
+          <h3>Choose your cleaner</h3>
+          <p>Browse cleaners who applied. Check their profile, rating and reviews. Pick the one you trust.</p>
+        </div>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-img">
+          <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=70&auto=format&fit=crop" alt="Freshly made bed with crisp white linen" loading="lazy" decoding="async">
+        </div>
+        <div class="step-body">
+          <div class="step-num">03 · RELAX</div>
+          <h3>Relax</h3>
+          <p>Pay securely in the app. Your cleaner takes care of the rest.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ============ PRICING ============ -->
+<section class="bg-cream2" id="pricing">
+  <div class="container center">
+    <div class="reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2 class="section-title">Transparent pricing. No surprises.</h2>
+      <p class="section-lead">See your price upfront, before you book. No subscription, no hidden fees.</p>
+    </div>
+    <div class="pricing-grid" data-stagger>
+      <div class="price-card reveal">
+        <h3>Airbnb Turnover</h3>
+        <p class="price-tag">Guest-ready between check-ins</p>
+        <ul class="price-rows">
+          <li><span>Studio or 1 bedroom</span><b>from $90</b></li>
+          <li><span>2 bedrooms</span><b>from $140</b></li>
+          <li><span>3 bedrooms</span><b>from $215</b></li>
+        </ul>
+      </div>
+      <div class="price-card reveal">
+        <h3>Deep Clean</h3>
+        <p class="price-tag">A full top-to-bottom reset</p>
+        <ul class="price-rows">
+          <li><span>Studio or 1 bedroom</span><b>from $105</b></li>
+          <li><span>2 bedrooms</span><b>from $165</b></li>
+          <li><span>3 bedrooms</span><b>from $255</b></li>
+        </ul>
+      </div>
+    </div>
+    <p class="pricing-note reveal">Your exact price depends on the size of your property and the type of clean. The app gives you a precise quote before you confirm anything.</p>
+    <p class="pricing-note reveal" style="margin-top:10px">Need a big place done fast? Book two cleaners at once with our duo option.</p>
+    <div class="gold-box reveal">Free cancellation up to 24 hours before the job.</div>
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="bg-cream" id="area">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Service area</span>
+      <h2 class="section-title">Now serving Far North Queensland</h2>
+      <p class="section-lead">We're starting where we live: Cairns, Palm Cove and Port Douglas. We're expanding across Queensland and beyond, one community at a time.</p>
+    </div>
+    <div class="area-wrap">
+      <div class="reveal">
+        <ul class="area-list" data-stagger>
+          <li class="reveal"><span class="tick" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Cairns</li>
+          <li class="reveal"><span class="tick" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Palm Cove</li>
+          <li class="reveal"><span class="tick" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Port Douglas</li>
+          <li class="reveal"><span class="tick" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Trinity Beach, Clifton Beach, Kewarra Beach <span style="color:var(--muted);font-weight:400">&nbsp;· surrounding suburbs</span></li>
+        </ul>
+        <div class="stats-row reveal">
+          <div class="stat"><b data-count="3">0</b><span>main areas served</span></div>
+          <div class="stat"><b data-count="24">0</b><span>hours free cancellation</span></div>
+          <div class="stat"><b>$0</b><span>subscription, pay per clean</span></div>
+        </div>
+      </div>
+      <div class="waitlist reveal">
+        <h3>Not in your area yet?</h3>
+        <p>Tell us where you are and we'll let you know when we arrive.</p>
+        <label for="wl-email">Your email</label>
+        <input type="email" id="wl-email" placeholder="you@example.com" autocomplete="email" aria-describedby="wl-email-error" required>
+        <p class="field-error" id="wl-email-error" role="alert"></p>
+        <label for="wl-city">Your town or suburb</label>
+        <input type="text" id="wl-city" placeholder="e.g. Townsville, QLD" autocomplete="address-level2" aria-describedby="wl-city-error" required>
+        <p class="field-error" id="wl-city-error" role="alert"></p>
+        <button class="btn btn-green" id="wl-btn" type="button">Join the waitlist</button>
+        <p class="waitlist-success" id="wl-success" role="status" aria-live="polite"></p>
+        <p class="waitlist-hint">This opens your email app. No account needed. Prefer not to? Email us directly at <a href="mailto:riyad.edim@gmail.com">riyad.edim@gmail.com</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUR STORY ============ -->
+<section class="bg-cream2" id="about">
+  <div class="container">
+    <div class="reveal">
+      <span class="eyebrow">Our story</span>
+      <h2 class="section-title">Built here, for people here.</h2>
+    </div>
+    <div class="story-wrap">
+      <div class="story-img reveal">
+        <img src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?w=900&q=70&auto=format&fit=crop" alt="Palm trees along a tropical Queensland beach" loading="lazy" decoding="async" data-parallax="0.08">
+      </div>
+      <div class="story-text reveal">
+        <p>BNB Clean started with a simple frustration: hosts couldn't find reliable cleaners, and good cleaners couldn't find steady, fairly paid work.</p>
+        <p>We're a small, local operation based in Far North Queensland. We're new, and we're building our reputation one clean at a time. That means every job matters to us, and every cleaner on the platform is someone we'd trust with our own place.</p>
+        <p>No call centres. No faceless corporation. Just people who care about doing this properly.</p>
+        <p class="story-sign">Riyad, founder</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOR CLEANERS ============ -->
+<section class="cleaners" id="cleaners">
+  <div class="container cleaners-inner reveal">
+    <div>
+      <span class="eyebrow">For cleaners</span>
+      <h2>Are you a cleaner?</h2>
+      <p>Join a growing network of independent cleaners in Far North Queensland. Set your own schedule, build your reputation, and get paid fairly for every job.</p>
+    </div>
+    <a class="btn btn-green" href="https://app.bnbclean.au">Join as a cleaner</a>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="bg-cream" id="faq">
+  <div class="container">
+    <div class="center reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2 class="section-title">Frequently asked questions</h2>
+    </div>
+    <div class="faq-list" data-stagger>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">What happens if my cleaner cancels?<span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="#14532d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <div class="faq-a"><p>We immediately re-list the job to our network of cleaners in your area, so someone else can pick it up. You'll be notified straight away.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">How do I pay?<span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="#14532d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <div class="faq-a"><p>Securely in the app, by card, through Stripe. You only pay once you've chosen your cleaner.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">Can I cancel?<span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="#14532d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <div class="faq-a"><p>Yes, free of charge up to 24 hours before the scheduled time.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">Are the cleaners insured?<span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="#14532d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <div class="faq-a"><p>Our cleaners are independent contractors with their own ABN. We recommend hosts check their cleaner's profile and reviews before booking.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">Do cleaners bring their own equipment?<span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="#14532d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <div class="faq-a"><p>Some do, and you'll see it on their profile. Otherwise, they'll use what you provide.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">What's the "duo" option?<span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="#14532d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <div class="faq-a"><p>Two cleaners on the same job. Ideal for large properties or tight turnarounds between guests.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">Which areas do you cover?<span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="#14532d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <div class="faq-a"><p>Cairns, Palm Cove, Port Douglas and surrounding suburbs. Join our waitlist if you're elsewhere.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTALL ============ -->
+<section class="bg-cream2" id="install">
+  <div class="container center">
+    <div class="reveal">
+      <span class="eyebrow">Install</span>
+      <h2 class="section-title">Install it like a real app</h2>
+      <p class="section-lead">Add BNB Clean to your home screen in seconds, no app store needed.</p>
+    </div>
+    <div class="install-grid" data-stagger>
+      <div class="install-card reveal" style="text-align:left">
+        <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" stroke="#14532d" stroke-width="2"/><circle cx="12" cy="18.5" r="1" fill="#14532d"/></svg>On iPhone</h3>
+        <ol>
+          <li><span class="install-num">1</span><span>Open <b>app.bnbclean.au</b> in <b>Safari</b>.</span></li>
+          <li><span class="install-num">2</span><span>Tap the <b>Share</b> button (the square with an arrow).</span></li>
+          <li><span class="install-num">3</span><span>Scroll down and tap <b>Add to Home Screen</b>, then <b>Add</b>.</span></li>
+        </ol>
+      </div>
+      <div class="install-card reveal" style="text-align:left">
+        <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" stroke="#14532d" stroke-width="2"/><rect x="10" y="18" width="4" height="1.6" rx="0.8" fill="#14532d"/></svg>On Android</h3>
+        <ol>
+          <li><span class="install-num">1</span><span>Open <b>app.bnbclean.au</b> in <b>Chrome</b>.</span></li>
+          <li><span class="install-num">2</span><span>Tap the <b>⋮ menu</b> in the top-right corner.</span></li>
+          <li><span class="install-num">3</span><span>Tap <b>Add to Home screen</b> (or <b>Install app</b>), then confirm.</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="gold-box reveal">On Samsung phones, this also works in the Samsung Internet browser: tap the menu, then "Add page to" → "Home screen".</div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta bg-cream">
+  <div class="container">
+    <div class="final-card reveal">
+      <h2>Ready for a spotless turnover?</h2>
+      <p>Post your first job in under a minute. No subscription, no commitment.</p>
+      <a class="btn btn-gold" href="https://app.bnbclean.au">Get started →</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
 <footer>
-  <div class="wrap">
-    <div class="logo"><span class="mark">⌂</span><span>BNB<span class="gold" style="margin-left:.12em">Clean</span></span></div>
-    BNB Clean · Australia · made for hosts and cleaners
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a href="#top" class="logo" aria-label="BNB Clean home">
+          <span class="logo-mark" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#e6c878" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V19a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-8.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="logo-text"><span class="g">BNB</span> <span class="a">Clean</span></span>
+        </a>
+        <p class="footer-desc">Trusted turnover cleaning for short-term rentals in Far North Queensland.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="https://app.bnbclean.au/conditions">Terms of Use</a></li>
+          <li><a href="https://app.bnbclean.au/confidentialite">Privacy Policy</a></li>
+          <li><a href="https://app.bnbclean.au/aide">Help</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:riyad.edim@gmail.com">riyad.edim@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>BNB Clean · ABN 68 502 292 530 · Far North Queensland, Australia</span>
+      <span>© 2026 BNB Clean. All rights reserved.</span>
+    </div>
   </div>
 </footer>
 
 <script>
-  (function(){
-    var words=["Airbnb","rental","holiday home","property"],i=0,el=document.querySelector(".rot");
-    if(el){setInterval(function(){i=(i+1)%words.length;el.style.opacity=0;setTimeout(function(){el.textContent=words[i];el.style.opacity=1;},250);},2200);}
-  })();
-  (function(){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.12});
-    document.querySelectorAll(".reveal").forEach(function(n){io.observe(n);});
-  })();
-</script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---- Reading progress bar ---- */
+  var progress = document.getElementById("progress");
+  function updateProgress(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    progress.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+  }
+
+  /* ---- Nav opacity on scroll ---- */
+  var nav = document.getElementById("nav");
+  function updateNav(){
+    nav.classList.toggle("scrolled", window.scrollY > 12);
+  }
+
+  /* ---- Mobile burger menu ---- */
+  var burger = document.getElementById("navBurger");
+  var mobileMenu = document.getElementById("mobileMenu");
+  function closeMobileMenu(){
+    mobileMenu.classList.remove("open");
+    mobileMenu.setAttribute("aria-hidden", "true");
+    burger.setAttribute("aria-expanded", "false");
+    burger.setAttribute("aria-label", "Open menu");
+  }
+  function openMobileMenu(){
+    mobileMenu.classList.add("open");
+    mobileMenu.setAttribute("aria-hidden", "false");
+    burger.setAttribute("aria-expanded", "true");
+    burger.setAttribute("aria-label", "Close menu");
+  }
+  burger.addEventListener("click", function(){
+    if (burger.getAttribute("aria-expanded") === "true") closeMobileMenu();
+    else openMobileMenu();
+  });
+  mobileMenu.querySelectorAll("a").forEach(function(a){
+    a.addEventListener("click", closeMobileMenu);
+  });
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape") closeMobileMenu();
+  });
+  window.addEventListener("resize", function(){
+    if (window.innerWidth >= 820) closeMobileMenu();
+  });
+
+  /* ---- Parallax (subtle, clamped) ---- */
+  var parallaxEls = reduced ? [] : Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
+  function updateParallax(){
+    var vh = window.innerHeight;
+    parallaxEls.forEach(function(el){
+      var rect = el.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > vh) return;
+      var speed = parseFloat(el.getAttribute("data-parallax")) || 0.1;
+      var center = rect.top + rect.height / 2 - vh / 2;
+      var offset = Math.max(-38, Math.min(38, -center * speed));
+      el.style.transform = "translateY(" + offset.toFixed(1) + "px)";
+    });
+  }
+
+  var ticking = false;
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      updateProgress();
+      updateNav();
+      updateParallax();
+      ticking = false;
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+  onScroll();
+
+  /* ---- Hero title: word-by-word reveal ---- */
+  var words = document.querySelectorAll("#heroTitle .w");
+  if (reduced) {
+    words.forEach(function(w){ w.classList.add("in"); });
+  } else {
+    words.forEach(function(w, i){
+      setTimeout(function(){ w.classList.add("in"); }, 150 + i * 60);
+    });
+  }
+
+  /* ---- Rotating word ---- */
+  var rotator = document.getElementById("rotator");
+  var rotWords = ["Airbnb", "rental", "holiday home", "property"];
+  var rotIdx = 0;
+  if (!reduced) {
+    setInterval(function(){
+      rotator.classList.add("fade");
+      setTimeout(function(){
+        rotIdx = (rotIdx + 1) % rotWords.length;
+        rotator.textContent = rotWords[rotIdx];
+        rotator.classList.remove("fade");
+      }, 350);
+    }, 2800);
+  }
+
+  /* ---- Reveal on scroll with stagger ---- */
+  var revealEls = document.querySelectorAll(".reveal");
+  if (reduced || !("IntersectionObserver" in window)) {
+    revealEls.forEach(function(el){ el.classList.add("in"); });
+    var gi = document.getElementById("guaranteeInner");
+    if (gi) gi.classList.add("in");
+  } else {
+    // Stagger: assign transition delays to children of [data-stagger]
+    document.querySelectorAll("[data-stagger]").forEach(function(group){
+      var kids = group.querySelectorAll(".reveal");
+      kids.forEach(function(el, i){
+        el.style.transitionDelay = (i * 90) + "ms";
+      });
+    });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    revealEls.forEach(function(el){ io.observe(el); });
+
+    /* Guarantee section scale-in */
+    var gInner = document.getElementById("guaranteeInner");
+    if (gInner) {
+      var gio = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting) {
+            gInner.classList.add("in");
+            gio.disconnect();
+          }
+        });
+      }, { threshold: 0.25 });
+      gio.observe(gInner);
+    }
+  }
+
+  /* ---- Animated counters (real numbers only) ---- */
+  var counters = document.querySelectorAll("[data-count]");
+  function animateCounter(el){
+    var target = parseInt(el.getAttribute("data-count"), 10);
+    if (reduced) { el.textContent = target; return; }
+    var start = null, dur = 1100;
+    function tick(ts){
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  if ("IntersectionObserver" in window && !reduced) {
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          cio.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function(el){ cio.observe(el); });
+  } else {
+    counters.forEach(function(el){ el.textContent = el.getAttribute("data-count"); });
+  }
+
+  /* ---- FAQ accordion ---- */
+  document.querySelectorAll(".faq-item").forEach(function(item){
+    var btn = item.querySelector(".faq-q");
+    var panel = item.querySelector(".faq-a");
+    btn.addEventListener("click", function(){
+      var isOpen = item.classList.contains("open");
+      // Close others
+      document.querySelectorAll(".faq-item.open").forEach(function(other){
+        if (other !== item) {
+          other.classList.remove("open");
+          other.querySelector(".faq-q").setAttribute("aria-expanded", "false");
+          other.querySelector(".faq-a").style.maxHeight = "0px";
+        }
+      });
+      if (isOpen) {
+        item.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+        panel.style.maxHeight = "0px";
+      } else {
+        item.classList.add("open");
+        btn.setAttribute("aria-expanded", "true");
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    });
+  });
+
+  /* ---- Waitlist (mailto, no backend) ---- */
+  var wlEmail = document.getElementById("wl-email");
+  var wlCity = document.getElementById("wl-city");
+  var wlEmailError = document.getElementById("wl-email-error");
+  var wlCityError = document.getElementById("wl-city-error");
+  var wlSuccess = document.getElementById("wl-success");
+
+  function isValidEmail(v){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+  function setFieldError(input, errorEl, message){
+    if (message) {
+      errorEl.textContent = message;
+      errorEl.classList.add("show");
+      input.classList.add("invalid");
+    } else {
+      errorEl.textContent = "";
+      errorEl.classList.remove("show");
+      input.classList.remove("invalid");
+    }
+  }
+  wlEmail.addEventListener("input", function(){ setFieldError(wlEmail, wlEmailError, ""); });
+  wlCity.addEventListener("input", function(){ setFieldError(wlCity, wlCityError, ""); });
+
+  document.getElementById("wl-btn").addEventListener("click", function(){
+    var email = wlEmail.value.trim();
+    var city = wlCity.value.trim();
+    var valid = true;
+
+    if (!isValidEmail(email)) {
+      setFieldError(wlEmail, wlEmailError, "Please enter a valid email address.");
+      valid = false;
+    } else {
+      setFieldError(wlEmail, wlEmailError, "");
+    }
+
+    if (!city) {
+      setFieldError(wlCity, wlCityError, "Please tell us your town or suburb.");
+      valid = false;
+    } else {
+      setFieldError(wlCity, wlCityError, "");
+    }
+
+    if (!valid) {
+      wlSuccess.classList.remove("show");
+      return;
+    }
+
+    var body = "Hi BNB Clean,%0D%0A%0D%0AI'd like to join the waitlist.%0D%0AMy area: " +
+      encodeURIComponent(city) +
+      "%0D%0AMy email: " + encodeURIComponent(email) + "%0D%0A%0D%0AThanks!";
+    window.location.href = "mailto:riyad.edim@gmail.com?subject=" +
+      encodeURIComponent("Waitlist: " + city) + "&body=" + body;
+
+    wlSuccess.textContent = "Thanks! Your email app should open. If it doesn't, just write to us at riyad.edim@gmail.com.";
+    wlSuccess.classList.add("show");
+  });
+})();
+</script>
 </body>
 </html>
