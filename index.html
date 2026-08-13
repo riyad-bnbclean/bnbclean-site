@@ -670,7 +670,7 @@ footer{background:var(--cream-3);padding:60px 0 34px;border-top:1px solid var(--
         <p class="field-error" id="wl-city-error" role="alert"></p>
         <button class="btn btn-green" id="wl-btn" type="button">Join the waitlist</button>
         <p class="waitlist-success" id="wl-success" role="status" aria-live="polite"></p>
-        <p class="waitlist-hint">This opens your email app. No account needed. Prefer not to? Email us directly at <a href="mailto:admin@bnbclean.au">admin@bnbclean.au</a>.</p>
+<p class="waitlist-hint">No account needed. Prefer to write to us directly? <a href="mailto:admin@bnbclean.au">admin@bnbclean.au</a>.</p>
       </div>
     </div>
   </div>
@@ -1032,7 +1032,7 @@ footer{background:var(--cream-3);padding:60px 0 34px;border-top:1px solid var(--
     });
   });
 
-  /* ---- Waitlist (mailto, no backend) ---- */
+/* ---- Waitlist (Edge Function + Resend) ---- */
   var wlEmail = document.getElementById("wl-email");
   var wlCity = document.getElementById("wl-city");
   var wlEmailError = document.getElementById("wl-email-error");
@@ -1056,7 +1056,10 @@ footer{background:var(--cream-3);padding:60px 0 34px;border-top:1px solid var(--
   wlEmail.addEventListener("input", function(){ setFieldError(wlEmail, wlEmailError, ""); });
   wlCity.addEventListener("input", function(){ setFieldError(wlCity, wlCityError, ""); });
 
-  document.getElementById("wl-btn").addEventListener("click", function(){
+  var wlBtn = document.getElementById("wl-btn");
+  var WAITLIST_URL = "https://qoyuuwqljkcnfywxtslb.supabase.co/functions/v1/waitlist";
+
+  wlBtn.addEventListener("click", async function(){
     var email = wlEmail.value.trim();
     var city = wlCity.value.trim();
     var valid = true;
@@ -1080,15 +1083,39 @@ footer{background:var(--cream-3);padding:60px 0 34px;border-top:1px solid var(--
       return;
     }
 
-    var body = "Hi BNB Clean,%0D%0A%0D%0AI'd like to join the waitlist.%0D%0AMy area: " +
-      encodeURIComponent(city) +
-      "%0D%0AMy email: " + encodeURIComponent(email) + "%0D%0A%0D%0AThanks!";
-    window.location.href = "mailto:admin@bnbclean.au?subject=" +
-      encodeURIComponent("Waitlist: " + city) + "&body=" + body;
+    // Anti double-clic — meme principe que dans l'app
+    if (wlBtn.disabled) return;
+    wlBtn.disabled = true;
+    var labelOrigine = wlBtn.textContent;
+    wlBtn.textContent = "Sending...";
+    wlSuccess.classList.remove("show");
 
-    wlSuccess.textContent = "Thanks! Your email app should open. If it doesn't, just write to us at admin@bnbclean.au.";
-    wlSuccess.classList.add("show");
+    try {
+      var res = await fetch(WAITLIST_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, ville: city })
+      });
+      var data = await res.json();
+
+      if (res.ok && data.success) {
+        wlSuccess.textContent = "Thanks! You're on the list. We'll email you as soon as we cover " + city + ".";
+        wlSuccess.classList.add("show");
+        wlEmail.value = "";
+        wlCity.value = "";
+        wlBtn.textContent = "Done ✓";
+        return; // le bouton reste desactive : inscription faite
+      }
+
+      throw new Error(data.error || "unknown");
+    } catch (err) {
+      setFieldError(wlEmail, wlEmailError,
+        "Something went wrong. Please email us at admin@bnbclean.au.");
+      wlBtn.disabled = false;
+      wlBtn.textContent = labelOrigine;
+    }
   });
+
 })();
 </script>
 </body>
