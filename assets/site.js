@@ -57,15 +57,25 @@
   /* ---- Hero video: loaded only after the page (and its text) has rendered ---- */
   var video = document.getElementById("heroVideo");
   var pauseBtn = document.getElementById("heroPause");
+  var manualBtn = document.getElementById("heroPlay");
   var userPaused = false;
+  var started = false;
 
   function setPaused(paused){
     pauseBtn.setAttribute("aria-pressed", paused ? "true" : "false");
     pauseBtn.setAttribute("aria-label", paused ? "Play background video" : "Pause background video");
   }
 
-  function startVideo(){
-    if (!video || reduceMotion.matches) return;
+  function startVideo(manual){
+    if (!video || started) return;
+    if (reduceMotion.matches && !manual) {
+      console.info("Hero video skipped: prefers-reduced-motion");
+      manualBtn.hidden = false;
+      return;
+    }
+    started = true;
+    manualBtn.hidden = true;
+    if (manual) video.classList.add("is-manual");
     var mobile = window.matchMedia("(max-width: 768px)").matches;
     video.poster = mobile ? "media/hero-poster-mobile.jpg" : "media/hero-poster.jpg";
     video.querySelectorAll("source[data-src]").forEach(function(s){
@@ -73,16 +83,18 @@
       if (media && !window.matchMedia(media).matches) { s.remove(); return; }
       s.src = s.getAttribute("data-src");
     });
-    video.load();
+    video.muted = true; // Safari/iOS: autoplay needs the muted property, not only the attribute
     video.addEventListener("playing", function(){
       video.classList.add("is-playing");
       pauseBtn.classList.add("is-visible");
+      setPaused(false);
     });
+    video.load();
     var p = video.play();
     if (p && p.catch) p.catch(function(){ /* autoplay refused: the poster stays */ });
 
     pauseBtn.addEventListener("click", function(){
-      if (video.paused) { userPaused = false; video.play(); setPaused(false); }
+      if (video.paused) { userPaused = false; video.play().catch(function(){}); setPaused(false); }
       else { userPaused = true; video.pause(); setPaused(true); }
     });
 
@@ -98,15 +110,16 @@
   }
 
   if (video) {
+    manualBtn.addEventListener("click", function(){ startVideo(true); });
     var kick = function(){
-      if ("requestIdleCallback" in window) requestIdleCallback(startVideo, { timeout: 1500 });
-      else setTimeout(startVideo, 200);
+      if ("requestIdleCallback" in window) requestIdleCallback(function(){ startVideo(false); }, { timeout: 1500 });
+      else setTimeout(function(){ startVideo(false); }, 200);
     };
     if (document.readyState === "complete") kick();
     else window.addEventListener("load", kick);
 
-    reduceMotion.addEventListener && reduceMotion.addEventListener("change", function(e){
-      if (e.matches) { video.pause(); pauseBtn.classList.remove("is-visible"); }
+    if (reduceMotion.addEventListener) reduceMotion.addEventListener("change", function(e){
+      if (e.matches && !video.classList.contains("is-manual")) { video.pause(); pauseBtn.classList.remove("is-visible"); }
     });
   }
 
