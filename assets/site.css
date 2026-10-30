@@ -88,7 +88,12 @@ p{text-wrap:pretty}
   -webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px)}
 .nav-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:19px;letter-spacing:-.02em;min-height:44px}
-.logo-mark{width:36px;height:36px;border-radius:10px;flex-shrink:0}
+/* Brand logo: original colours, never altered */
+.logo-mark{width:38px;height:38px;border-radius:11px;background:#14532d;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-text .g{color:#14532d}
+.logo-text .a{color:#c19a3f}
+.nav--over:not(.is-solid):not(.is-open) .logo-text .g,.footer .logo-text .g{color:#fff}
+.nav--over:not(.is-solid):not(.is-open) .logo-text .a,.footer .logo-text .a{color:#e6c878}
 .nav-links{display:none;gap:4px}
 .nav-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;
   font-size:15px;font-weight:600;text-decoration:none;opacity:.88;transition:opacity .2s,background-color .2s}
@@ -162,7 +167,9 @@ p{text-wrap:pretty}
 .steps{display:grid;gap:56px}
 .step-shot{aspect-ratio:4/5;border-radius:var(--r-card);background:var(--tint);overflow:hidden;
   display:flex;align-items:center;justify-content:center;color:var(--ink-2);font-weight:600;font-size:15px}
-.step-shot img{width:100%;height:100%;object-fit:cover}
+.step-shot img{height:88%;width:auto;max-width:86%;object-fit:contain;border-radius:18px;border:1px solid var(--line);
+  box-shadow:0 2px 4px rgba(19,38,26,.06),0 24px 48px -24px rgba(19,38,26,.35)}
+.steps-note{margin-top:40px;font-size:14px;color:var(--ink-2);max-width:70ch}
 .step-num{display:block;margin-top:28px;font-size:15px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums}
 .step h3{margin-top:6px;font-size:clamp(22px,2.2vw,26px);letter-spacing:-.025em}
 .step p{margin-top:10px;color:var(--ink-2);max-width:34ch}
@@ -287,11 +294,10 @@ p{text-wrap:pretty}
 .footer .foot-h{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;margin-bottom:12px}
 .footer ul a{display:inline-flex;align-items:center;min-height:44px;font-size:15px;text-decoration:none}
 .footer ul a:hover{color:#fff;text-decoration:underline}
-.play-badge{display:inline-flex;align-items:center;gap:12px;min-height:52px;margin-top:22px;padding:8px 18px 8px 14px;border-radius:12px;
-  background:#000;color:#fff;border:1px solid rgba(255,255,255,.3);text-decoration:none;line-height:1.1}
-.play-badge small{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-.play-badge b{display:block;font-size:18px;font-weight:700;letter-spacing:-.01em}
-.play-badge:hover{border-color:#fff}
+/* Official Google Play badge: no distortion or recolouring, clear space = 1/4 of its height */
+.play-badge{display:inline-block;margin-top:12px;padding:9px;margin-left:-9px}
+.play-badge img{display:block;height:36px;width:auto}
+@media(min-width:769px){.play-badge{padding:10px;margin-left:-10px}.play-badge img{height:40px}}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:24px;display:flex;flex-direction:column;gap:8px;font-size:14px;color:rgba(255,255,255,.72)}
 .footer :focus-visible{outline-color:#fff}
 @media(min-width:720px){.footer-grid{grid-template-columns:1.4fr 1fr 1fr 1.2fr}.footer-bottom{flex-direction:row;justify-content:space-between}}
@@ -318,8 +324,9 @@ p{text-wrap:pretty}
 .tool-body .link-arrow{margin-top:4px}
 @media(max-width:819px){
   .steps{gap:32px}
-  .step{display:grid;grid-template-columns:38% 1fr;column-gap:20px;align-items:center}
-  .step-shot{grid-row:1/4;border-radius:18px;font-size:13px;text-align:center;padding:8px}
+  .step{display:grid;grid-template-columns:38% 1fr;grid-template-rows:auto auto 1fr;column-gap:20px;align-items:start}
+  .step-shot{grid-row:1/4;aspect-ratio:auto;background:none;border-radius:0}
+  .step-shot img{height:auto;width:100%;max-width:none;border-radius:14px}
   .step-num{margin-top:0}
 }
 @media(max-width:400px){.statement{padding:22px}.statement-head b{font-size:18px}}
