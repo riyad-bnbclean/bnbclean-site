@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airbnb Profit Calculator Australia · Free short-term rental calculator | BNB Clean</title>
+<meta name="description" content="Free Airbnb profit calculator for Australian hosts. Enter your nightly rate, occupancy, platform fee and cleaning costs to see your real monthly profit and profit per night.">
+<link rel="canonical" href="https://bnbclean.au/calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BNB Clean">
+<meta property="og:locale" content="en_AU">
+<meta property="og:url" content="https://bnbclean.au/calculator.html">
+<meta property="og:title" content="Airbnb Profit Calculator · What does your Airbnb really earn?">
+<meta property="og:description" content="Free calculator for Australian short-term rental hosts: revenue, turnovers, costs and real monthly profit.">
+<meta property="og:image" content="https://bnbclean.au/media/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Airbnb Profit Calculator · What does your Airbnb really earn?">
+<meta name="twitter:description" content="Free calculator for Australian short-term rental hosts.">
+<meta name="twitter:image" content="https://bnbclean.au/media/og-image.jpg">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0f4a2a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.calc{display:grid;gap:32px;align-items:start;padding-bottom:clamp(80px,10vw,128px)}
+.calc-form{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:clamp(24px,4vw,40px)}
+.calc-form fieldset{border:0;display:grid;gap:20px}
+.calc-form fieldset+fieldset{margin-top:32px;padding-top:28px;box-shadow:inset 0 1px 0 var(--line)}
+.calc-form legend{font-weight:800;font-size:18px;letter-spacing:-.015em;margin-bottom:4px;padding:0}
+.calc-form .field{margin-top:0}
+.affix{position:relative;display:flex;align-items:center}
+.affix .input{font-variant-numeric:tabular-nums}
+.affix-pre .input{padding-left:46px}
+.affix-post .input{padding-right:64px}
+.affix b{position:absolute;font-weight:600;font-size:15px;color:var(--ink-2);pointer-events:none}
+.affix-pre b{left:16px}.affix-post b{right:16px}
+.calc-results{background:var(--green);color:#fff;border-radius:var(--r-card);padding:clamp(24px,4vw,40px)}
+.calc-results h2{font-size:18px;letter-spacing:-.01em;font-weight:800;color:rgba(255,255,255,.86)}
+.big{margin-top:10px;font-size:clamp(44px,6vw,64px);font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.big-label{margin-top:8px;color:rgba(255,255,255,.82);font-size:15px}
+.res-list{margin-top:28px;border-top:1px solid rgba(255,255,255,.2)}
+.res-list div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.2);font-size:16px}
+.res-list dt{color:rgba(255,255,255,.84)}
+.res-list dd{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.assume{margin-top:18px;font-size:14px;line-height:1.5;color:rgba(255,255,255,.8)}
+.calc-cta{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:clamp(24px,3.6vw,32px)}
+.calc-cta p{font-weight:800;font-size:20px;letter-spacing:-.02em;line-height:1.3}
+.calc-cta .btn{margin-top:18px}
+.calc-cta .link-arrow{margin-top:6px}
+@media(min-width:960px){.calc{grid-template-columns:1.1fr .9fr;gap:40px}.calc-side{position:sticky;top:calc(var(--nav-h) + 24px)}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" id="nav" aria-label="Main navigation">
+  <div class="wrap nav-inner">
+    <a href="/" class="logo" aria-label="BNB Clean home">
+      <svg class="logo-mark" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="10" fill="#0f4a2a"/><path d="M8 17.5 18 9l10 8.5" fill="none" stroke="#b9dcc3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 16v10.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>BNB Clean</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#how">How it works</a></li>
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/#premium">Premium</a></li>
+      <li><a href="/#tools">Free tools</a></li>
+      <li><a href="/#cleaners">Cleaners</a></li>
+    </ul>
+    <a class="btn btn-primary btn-sm nav-cta" href="https://app.bnbclean.au">Book a clean</a>
+    <button class="burger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul>
+    <li><a href="/#how">How it works</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/#premium">Premium</a></li>
+    <li><a href="/#tools">Free tools</a></li>
+    <li><a href="/#cleaners">Cleaners</a></li>
+  </ul>
+  <a class="btn btn-primary" href="https://app.bnbclean.au">Book a clean</a>
+</div>
+
+<main id="main">
+  <header class="wrap page-head">
+    <h1>Airbnb Profit Calculator</h1>
+    <p class="lead">What does your Airbnb really earn? Enter your numbers and see your monthly profit update as you type. Everything stays in your browser.</p>
+  </header>
+
+  <div class="wrap calc">
+    <form class="calc-form" id="calcForm" novalidate>
+      <fieldset>
+        <legend>Bookings</legend>
+        <div class="field">
+          <label for="rate">Nightly rate</label>
+          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="rate" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
+        </div>
+        <div class="field">
+          <label for="nights">Nights booked per month</label>
+          <div class="affix affix-post"><input class="input" id="nights" type="number" inputmode="numeric" min="0" max="31" step="1" autocomplete="off"><b aria-hidden="true">nights</b></div>
+        </div>
+        <div class="field">
+          <label for="stay">Average stay length</label>
+          <div class="affix affix-post"><input class="input" id="stay" type="number" inputmode="decimal" min="1" step="0.5" autocomplete="off"><b aria-hidden="true">nights</b></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Fees and costs</legend>
+        <div class="field">
+          <label for="fee">Platform fee</label>
+          <div class="affix affix-post"><input class="input" id="fee" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="3" autocomplete="off"><b aria-hidden="true">%</b></div>
+        </div>
+        <div class="field">
+          <label for="guestClean">Cleaning fee charged to guests, per stay</label>
+          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="guestClean" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
+        </div>
+        <div class="field">
+          <label for="cleanCost">Cleaning cost per turnover</label>
+          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="cleanCost" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
+        </div>
+        <div class="field">
+          <label for="other">Other monthly costs</label>
+          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="other" type="number" inputmode="decimal" min="0" step="1" autocomplete="off" aria-describedby="other-hint"></div>
+          <p class="form-hint" id="other-hint" style="margin-top:6px">Utilities, internet, supplies, insurance, strata, loan or rent.</p>
+        </div>
+      </fieldset>
+    </form>
+
+    <div class="calc-side">
+      <section class="calc-results on-dark" aria-labelledby="res-title">
+        <h2 id="res-title">Estimated monthly profit</h2>
+        <p class="big"><output id="outProfit" for="rate nights stay fee guestClean cleanCost other" aria-live="polite">A$ —</output></p>
+        <p class="big-label">Fill in your numbers to see your result.</p>
+        <dl class="res-list">
+          <div><dt>Monthly revenue</dt><dd><output id="outRevenue">A$ —</output></dd></div>
+          <div><dt>Number of turnovers</dt><dd><output id="outTurnovers">—</output></dd></div>
+          <div><dt>Total costs</dt><dd><output id="outCosts">A$ —</output></dd></div>
+          <div><dt>Profit per night booked</dt><dd><output id="outPerNight">A$ —</output></dd></div>
+        </dl>
+        <p class="assume">Assumes one turnover per stay (nights booked ÷ average stay, rounded), with the platform fee taken on nightly revenue plus guest cleaning fees. Before tax.</p>
+      </section>
+      <aside class="calc-cta">
+        <p>Host in Cairns, Palm Cove or Port Douglas? Book your next clean in three taps.</p>
+        <a class="btn btn-primary" href="https://app.bnbclean.au">Book a clean</a>
+        <div><a class="link-arrow" href="guide.html"><span>Get the free Host Like a Pro guide</span><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="/" class="logo" aria-label="BNB Clean home">
+          <svg class="logo-mark" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="10" fill="#0f4a2a"/><path d="M8 17.5 18 9l10 8.5" fill="none" stroke="#b9dcc3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 16v10.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>BNB Clean</span>
+        </a>
+        <p class="footer-desc">Airbnb turnover cleaning in Cairns, Palm Cove and Port Douglas.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=au.bnbclean.app" target="_blank" rel="noopener">
+          <svg width="22" height="24" viewBox="0 0 22 24" aria-hidden="true"><path d="M2 1.5v21L20 12 2 1.5Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
+          <span><small>Get it on</small><b>Google Play</b></span>
+        </a>
+      </div>
+      <div>
+        <p class="foot-h">Hosts</p>
+        <ul>
+          <li><a href="/#how">How it works</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/#premium">Premium</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot-h">Free tools</p>
+        <ul>
+          <li><a href="calculator.html">Profit calculator</a></li>
+          <li><a href="guide.html">Host Like a Pro guide</a></li>
+          <li><a href="/#cleaners">For cleaners</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot-h">Help &amp; legal</p>
+        <ul>
+          <li><a href="mailto:admin@bnbclean.au">admin@bnbclean.au</a></li>
+          <li><a href="https://wa.me/61408627402?text=Hi%20BNB%20Clean%2C%20I%20have%20a%20question%20about%20cleaning%20for%20my%20property." target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://app.bnbclean.au/aide">Help</a></li>
+          <li><a href="https://app.bnbclean.au/conditions">Terms of Use</a></li>
+          <li><a href="https://app.bnbclean.au/confidentialite">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- MENTIONS LÉGALES À VALIDER PAR RIYAD -->
+    <div class="footer-bottom">
+      <span>BNB Clean · ABN 68 502 292 530 · Far North Queensland, Australia</span>
+      <span>© 2026 BNB Clean. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js" defer></script>
+<script>
+(function(){
+  "use strict";
+  // 100% in the browser: no network calls.
+  var ids = ["rate","nights","stay","fee","guestClean","cleanCost","other"];
+  var el = {};
+  ids.forEach(function(id){ el[id] = document.getElementById(id); });
+  var out = {
+    profit: document.getElementById("outProfit"),
+    revenue: document.getElementById("outRevenue"),
+    turnovers: document.getElementById("outTurnovers"),
+    costs: document.getElementById("outCosts"),
+    perNight: document.getElementById("outPerNight")
+  };
+  var label = document.querySelector(".big-label");
+
+  function num(id){
+    var v = parseFloat(el[id].value);
+    return isFinite(v) && v >= 0 ? v : null;
+  }
+  function money(v){
+    var s = Math.round(Math.abs(v)).toLocaleString("en-AU");
+    return (v < 0 ? "−A$" : "A$") + s;
+  }
+
+  function update(){
+    var rate = num("rate"), nights = num("nights"), stay = num("stay");
+    var fee = num("fee") || 0, guestClean = num("guestClean") || 0;
+    var cleanCost = num("cleanCost") || 0, other = num("other") || 0;
+
+    if (rate === null || nights === null || !stay) {
+      out.profit.textContent = "A$ —";
+      out.revenue.textContent = "A$ —";
+      out.turnovers.textContent = "—";
+      out.costs.textContent = "A$ —";
+      out.perNight.textContent = "A$ —";
+      label.textContent = "Fill in your nightly rate, nights booked and average stay to see your result.";
+      return;
+    }
+
+    var turnovers = nights > 0 ? Math.max(1, Math.round(nights / stay)) : 0;
+    var revenue = rate * nights + guestClean * turnovers;
+    var platform = revenue * Math.min(fee, 100) / 100;
+    var costs = platform + cleanCost * turnovers + other;
+    var profit = revenue - costs;
+
+    out.profit.textContent = money(profit);
+    out.revenue.textContent = money(revenue);
+    out.turnovers.textContent = String(turnovers);
+    out.costs.textContent = money(costs);
+    out.perNight.textContent = nights > 0 ? money(profit / nights) : "A$ —";
+    label.textContent = profit >= 0 ? "Per month, before tax." : "Per month, before tax. Your costs are higher than your revenue.";
+  }
+
+  ids.forEach(function(id){ el[id].addEventListener("input", update); });
+  document.getElementById("calcForm").addEventListener("submit", function(e){ e.preventDefault(); });
+  update();
+})();
+</script>
+</body>
+</html>

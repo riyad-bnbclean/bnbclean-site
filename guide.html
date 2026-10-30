@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Host Like a Pro · Free Airbnb host guide for Australia | BNB Clean</title>
+<meta name="description" content="Host Like a Pro: the free 12-chapter guide for Airbnb and short-term rental hosts in Australia. Leave your email and we'll send it to your inbox.">
+<link rel="canonical" href="https://bnbclean.au/guide.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BNB Clean">
+<meta property="og:locale" content="en_AU">
+<meta property="og:url" content="https://bnbclean.au/guide.html">
+<meta property="og:title" content="Host Like a Pro · The free 12-chapter Airbnb host guide">
+<meta property="og:description" content="The free 12-chapter guide for Airbnb hosts in Australia, from BNB Clean.">
+<meta property="og:image" content="https://bnbclean.au/media/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Host Like a Pro · The free 12-chapter Airbnb host guide">
+<meta name="twitter:description" content="The free 12-chapter guide for Airbnb hosts in Australia.">
+<meta name="twitter:image" content="https://bnbclean.au/media/og-image.jpg">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0f4a2a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.guide-hero{display:grid;gap:40px;align-items:center;padding-bottom:clamp(64px,8vw,104px)}
+.guide-cover{width:min(300px,70vw);aspect-ratio:3/4;border-radius:18px;background:var(--green);color:#fff;padding:28px;
+  display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 30px 60px -30px rgba(15,74,42,.7);justify-self:center}
+.guide-cover b{font-size:40px;line-height:1;font-weight:800;letter-spacing:-.04em}
+.guide-cover small{font-size:14px;font-weight:600;opacity:.85}
+.guide-hero .form-card{margin-top:32px;max-width:520px}
+.toc{border-top:1px solid var(--line);display:grid}
+.toc li{display:flex;gap:20px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line);font-weight:700;font-size:18px;letter-spacing:-.015em}
+.toc span{font-size:15px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;min-width:2ch}
+@media(min-width:760px){.toc{grid-template-columns:1fr 1fr;column-gap:48px}}
+@media(min-width:960px){.guide-hero{grid-template-columns:1.2fr .8fr;gap:64px}.guide-cover{order:2}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" id="nav" aria-label="Main navigation">
+  <div class="wrap nav-inner">
+    <a href="/" class="logo" aria-label="BNB Clean home">
+      <svg class="logo-mark" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="10" fill="#0f4a2a"/><path d="M8 17.5 18 9l10 8.5" fill="none" stroke="#b9dcc3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 16v10.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>BNB Clean</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#how">How it works</a></li>
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/#premium">Premium</a></li>
+      <li><a href="/#tools">Free tools</a></li>
+      <li><a href="/#cleaners">Cleaners</a></li>
+    </ul>
+    <a class="btn btn-primary btn-sm nav-cta" href="https://app.bnbclean.au">Book a clean</a>
+    <button class="burger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul>
+    <li><a href="/#how">How it works</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/#premium">Premium</a></li>
+    <li><a href="/#tools">Free tools</a></li>
+    <li><a href="/#cleaners">Cleaners</a></li>
+  </ul>
+  <a class="btn btn-primary" href="https://app.bnbclean.au">Book a clean</a>
+</div>
+
+<main id="main">
+  <div class="wrap page-head guide-hero">
+    <!-- Replace with <img src="media/ebook-cover.jpg" width="..." height="..." alt="Host Like a Pro guide cover"> once the file exists -->
+    <div class="guide-cover" aria-hidden="true"><b>Host Like a Pro</b><small>The 12&#8209;chapter host guide · BNB Clean</small></div>
+    <div>
+      <h1>Host Like a Pro</h1>
+      <p class="lead">The 12&#8209;chapter host guide, free. Leave your email and we'll send it to your inbox.</p>
+      <!--
+        TEMPORARY (V1): this form posts to the existing "waitlist" Edge Function with "GUIDE" as the town,
+        so Riyad receives the request by email and sends the PDF by hand.
+        To replace with a dedicated Edge Function that emails the PDF automatically.
+      -->
+      <form class="form-card" data-waitlist data-fixed-town="GUIDE" data-success="Thanks! The guide is on its way to your inbox." novalidate>
+        <h2 style="font-size:22px;letter-spacing:-.02em">Get the free guide</h2>
+        <div class="field">
+          <label for="guide-email">Your email</label>
+          <input class="input" type="email" id="guide-email" name="email" placeholder="you@example.com" autocomplete="email" aria-describedby="guide-email-error" required>
+          <p class="field-error" id="guide-email-error" role="alert"></p>
+        </div>
+        <button class="btn btn-primary" type="submit">Send me the guide</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <p class="form-hint">One email with your guide. No spam.</p>
+      </form>
+    </div>
+  </div>
+
+  <section class="section tools" aria-labelledby="toc-title">
+    <div class="wrap">
+      <div class="section-head"><h2 id="toc-title">What's inside</h2></div>
+      <ol class="toc">
+        <li><span>01</span>[Chapter 1 title]</li>
+        <li><span>02</span>[Chapter 2 title]</li>
+        <li><span>03</span>[Chapter 3 title]</li>
+        <li><span>04</span>[Chapter 4 title]</li>
+        <li><span>05</span>[Chapter 5 title]</li>
+        <li><span>06</span>[Chapter 6 title]</li>
+        <li><span>07</span>[Chapter 7 title]</li>
+        <li><span>08</span>[Chapter 8 title]</li>
+        <li><span>09</span>[Chapter 9 title]</li>
+        <li><span>10</span>[Chapter 10 title]</li>
+        <li><span>11</span>[Chapter 11 title]</li>
+        <li><span>12</span>[Chapter 12 title]</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap cleaners-inner" style="align-items:center">
+      <div>
+        <h2 style="max-width:18ch">Host in Cairns, Palm Cove or Port Douglas?</h2>
+        <p class="lead" style="margin-top:18px">Book your next clean in three taps.</p>
+      </div>
+      <a class="btn btn-primary" href="https://app.bnbclean.au">Book a clean</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="/" class="logo" aria-label="BNB Clean home">
+          <svg class="logo-mark" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="10" fill="#0f4a2a"/><path d="M8 17.5 18 9l10 8.5" fill="none" stroke="#b9dcc3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 16v10.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>BNB Clean</span>
+        </a>
+        <p class="footer-desc">Airbnb turnover cleaning in Cairns, Palm Cove and Port Douglas.</p>
+        <a class="play-badge" href="https://play.google.com/store/apps/details?id=au.bnbclean.app" target="_blank" rel="noopener">
+          <svg width="22" height="24" viewBox="0 0 22 24" aria-hidden="true"><path d="M2 1.5v21L20 12 2 1.5Z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
+          <span><small>Get it on</small><b>Google Play</b></span>
+        </a>
+      </div>
+      <div>
+        <p class="foot-h">Hosts</p>
+        <ul>
+          <li><a href="/#how">How it works</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/#premium">Premium</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot-h">Free tools</p>
+        <ul>
+          <li><a href="calculator.html">Profit calculator</a></li>
+          <li><a href="guide.html">Host Like a Pro guide</a></li>
+          <li><a href="/#cleaners">For cleaners</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot-h">Help &amp; legal</p>
+        <ul>
+          <li><a href="mailto:admin@bnbclean.au">admin@bnbclean.au</a></li>
+          <li><a href="https://wa.me/61408627402?text=Hi%20BNB%20Clean%2C%20I%20have%20a%20question%20about%20cleaning%20for%20my%20property." target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://app.bnbclean.au/aide">Help</a></li>
+          <li><a href="https://app.bnbclean.au/conditions">Terms of Use</a></li>
+          <li><a href="https://app.bnbclean.au/confidentialite">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- MENTIONS LÉGALES À VALIDER PAR RIYAD -->
+    <div class="footer-bottom">
+      <span>BNB Clean · ABN 68 502 292 530 · Far North Queensland, Australia</span>
+      <span>© 2026 BNB Clean. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>
