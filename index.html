@@ -212,7 +212,8 @@
               <div class="field">
                 <label for="pf-count">Properties you manage</label>
                 <div class="select-wrap">
-                  <select class="input" id="pf-count" name="nb_logements">
+                  <select class="input" id="pf-count" name="nb_logements" aria-describedby="pf-count-error" required>
+                    <option value="" selected>Select…</option>
                     <option value="1">1</option>
                     <option value="2-5">2-5</option>
                     <option value="6-20">6-20</option>
@@ -220,6 +221,7 @@
                   </select>
                   <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
+                <p class="field-error" id="pf-count-error" role="alert"></p>
               </div>
             </div>
             <button class="btn btn-gold" type="submit">Send request</button>

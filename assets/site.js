@@ -138,30 +138,55 @@
     });
   }
 
-  /* ---- Premium: example weekly statements, computed with the real hourly rates ---- */
+  /* ---- Premium: example weekly statements, priced by the RPC estimer_prix_public ---- */
   var statementBody = document.getElementById("statementBody");
   if (statementBody) {
-    var RATE = { Solo: 50, Duo: 90 }; // A$ per hour, as in the app
+    // [day, label, service sent to the RPC, team, minutes, amount shown until the RPC answers (silent fallback)]
     var STATEMENTS = [
-      [["Mon", "Airbnb Turnover", "Solo", 105], ["Wed", "Airbnb Turnover", "Duo", 150], ["Sat", "Airbnb Turnover", "Solo", 105]],
-      [["Tue", "Deep Clean", "Solo", 180], ["Thu", "Airbnb Turnover", "Solo", 135], ["Sun", "Airbnb Turnover", "Duo", 120]],
-      [["Mon", "Airbnb Turnover", "Solo", 105], ["Tue", "Airbnb Turnover", "Solo", 105], ["Fri", "Airbnb Turnover", "Duo", 180]]
+      [["Mon", "Airbnb Turnover", "Airbnb Turnover", "Solo", 105, 90], ["Wed", "Airbnb Turnover", "Airbnb Turnover", "Duo", 150, 225], ["Sat", "Airbnb Turnover", "Airbnb Turnover", "Solo", 105, 90]],
+      [["Tue", "Deep Clean", "Deep Cleaning", "Solo", 180, 150], ["Thu", "Airbnb Turnover", "Airbnb Turnover", "Solo", 135, 115], ["Sun", "Airbnb Turnover", "Airbnb Turnover", "Duo", 120, 180]],
+      [["Mon", "Airbnb Turnover", "Airbnb Turnover", "Solo", 105, 90], ["Tue", "Airbnb Turnover", "Airbnb Turnover", "Solo", 105, 90], ["Fri", "Airbnb Turnover", "Airbnb Turnover", "Duo", 180, 270]]
     ];
-    // Hourly rate × duration, rounded to the nearest 5 dollars (as in the app)
-    var price = function(team, minutes){ return Math.round(RATE[team] * minutes / 60 / 5) * 5; };
     var dur = function(min){ var h = Math.floor(min / 60), m = min % 60; return h + "h" + (m ? String(m).padStart(2, "0") : ""); };
+    var current = 0;
     var renderStatement = function(i){
       var total = 0;
       var rows = STATEMENTS[i].map(function(job, n){
-        var amount = price(job[2], job[3]);
-        total += amount;
-        return "<li><div>" + job[1] + "<small>" + job[0] + " · " + job[2] + " " + dur(job[3]) + " · Property " + (n + 1) +
-          "</small></div><strong>A$" + amount + "</strong></li>";
+        total += job[5];
+        return "<li><div>" + job[1] + "<small>" + job[0] + " · " + job[3] + " " + dur(job[4]) + " · Property " + (n + 1) +
+          "</small></div><strong>A$" + job[5] + "</strong></li>";
       }).join("");
       statementBody.innerHTML = '<ul class="statement-rows">' + rows + '</ul><div class="statement-total"><span>Total</span><strong>A$' + total + "</strong></div>";
     };
+
+    // 9 calls in parallel, once, when the section comes into view. Any failure: keep every fallback amount.
+    var priceStatements = function(){
+      var ctrl = new AbortController();
+      var t = setTimeout(function(){ ctrl.abort(); }, 4000);
+      var jobs = [].concat.apply([], STATEMENTS);
+      Promise.all(jobs.map(function(job){
+        return fetch(SUPABASE_URL + "/rest/v1/rpc/estimer_prix_public", {
+          method: "POST",
+          headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY, "Content-Type": "application/json" },
+          body: JSON.stringify({ p_service: job[2], p_chambres: 1, p_sdb: 1, p_duo: job[3] === "Duo", p_duree: job[4] / 60 }),
+          signal: ctrl.signal
+        }).then(function(res){ return res.ok ? res.json() : Promise.reject(res.status); })
+          .then(function(d){ return typeof d.prix === "number" ? d.prix : Promise.reject("no price"); });
+      })).then(function(prices){
+        clearTimeout(t);
+        jobs.forEach(function(job, i){ job[5] = prices[i]; });
+        renderStatement(current);
+      }).catch(function(){ clearTimeout(t); /* silent: fallback amounts stay */ });
+    };
+    var premiumSection = document.getElementById("premium");
+    if ("IntersectionObserver" in window && premiumSection) {
+      var io = new IntersectionObserver(function(entries){
+        if (entries.some(function(e){ return e.isIntersecting; })) { io.disconnect(); priceStatements(); }
+      });
+      io.observe(premiumSection);
+    } else priceStatements();
+
     renderStatement(0);
-    var current = 0;
     setInterval(function(){
       if (reduceMotion.matches) { if (current !== 0) { current = 0; renderStatement(0); } return; } // reduced motion: statement 1, fixed
       if (document.hidden) return;
@@ -326,15 +351,21 @@
     var status = pForm.querySelector(".pf-status");
     var btn = pForm.querySelector("button[type=submit]");
     var done = document.getElementById("premiumDone");
+    var count = document.getElementById("pf-count");
     email.addEventListener("input", function(){ setError(email, ""); });
+    count.addEventListener("change", function(){ setError(count, ""); });
 
     pForm.addEventListener("submit", async function(e){
       e.preventDefault();
       if (btn.disabled) return;
       var value = email.value.trim();
       status.textContent = "";
-      if (!isValidEmail(value)) { setError(email, "Please enter a valid email address."); email.focus(); return; }
-      setError(email, "");
+      var firstInvalid = null;
+      if (!isValidEmail(value)) { setError(email, "Please enter a valid email address."); firstInvalid = email; }
+      else setError(email, "");
+      if (!count.value) { setError(count, "Please tell us how many properties you manage."); firstInvalid = firstInvalid || count; }
+      else setError(count, "");
+      if (firstInvalid) { firstInvalid.focus(); return; }
 
       btn.disabled = true;
       var label = btn.textContent;
@@ -347,7 +378,7 @@
           body: JSON.stringify({
             prenom: document.getElementById("pf-name").value.trim(),
             email: value,
-            nb_logements: document.getElementById("pf-count").value,
+            nb_logements: count.value,
             source: "site"
           })
         });
