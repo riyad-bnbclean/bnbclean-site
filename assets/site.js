@@ -144,7 +144,7 @@
     // [day, label, service sent to the RPC, team, minutes, amount shown until the RPC answers (silent fallback)]
     var STATEMENTS = [
       [["Mon", "Airbnb Turnover", "Airbnb Turnover", "Solo", 105, 90], ["Wed", "Airbnb Turnover", "Airbnb Turnover", "Duo", 150, 225], ["Sat", "Airbnb Turnover", "Airbnb Turnover", "Solo", 105, 90]],
-      [["Tue", "Deep Clean", "Deep Cleaning", "Solo", 180, 150], ["Thu", "Airbnb Turnover", "Airbnb Turnover", "Solo", 135, 115], ["Sun", "Airbnb Turnover", "Airbnb Turnover", "Duo", 120, 180]],
+      [["Tue", "Deep Clean", "Deep Cleaning", "Solo", 180, 180], ["Thu", "Airbnb Turnover", "Airbnb Turnover", "Solo", 135, 115], ["Sun", "Airbnb Turnover", "Airbnb Turnover", "Duo", 120, 180]],
       [["Mon", "Airbnb Turnover", "Airbnb Turnover", "Solo", 105, 90], ["Tue", "Airbnb Turnover", "Airbnb Turnover", "Solo", 105, 90], ["Fri", "Airbnb Turnover", "Airbnb Turnover", "Duo", 180, 270]]
     ];
     var dur = function(min){ var h = Math.floor(min / 60), m = min % 60; return h + "h" + (m ? String(m).padStart(2, "0") : ""); };
