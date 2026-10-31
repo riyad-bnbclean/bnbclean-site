@@ -195,16 +195,20 @@
       </div>
     </div>
     <div class="statement" role="img" aria-label="Example of a Premium weekly statement: three cleans and one total, settled in a single payment.">
+      <p class="statement-label">Example statement</p>
       <div class="statement-head">
         <div><b>Weekly statement</b><span>Sent every Sunday</span></div>
         <span class="badge-premium">Premium</span>
       </div>
-      <ul class="statement-rows">
-        <li><div>Airbnb Turnover<small>Monday · Property 1</small></div><strong>A$ —</strong></li>
-        <li><div>Airbnb Turnover<small>Wednesday · Property 2</small></div><strong>A$ —</strong></li>
-        <li><div>Deep Clean<small>Friday · Property 1</small></div><strong>A$ —</strong></li>
-      </ul>
-      <div class="statement-total"><span>Total</span><strong>A$ —</strong></div>
+      <!-- Statement 1 is rendered here for no-JS and reduced motion; assets/site.js computes and rotates all three -->
+      <div class="statement-body" id="statementBody">
+        <ul class="statement-rows">
+          <li><div>Airbnb Turnover<small>Mon · Solo 1h45 · Property 1</small></div><strong>A$90</strong></li>
+          <li><div>Airbnb Turnover<small>Wed · Duo 2h30 · Property 2</small></div><strong>A$225</strong></li>
+          <li><div>Airbnb Turnover<small>Sat · Solo 1h45 · Property 3</small></div><strong>A$90</strong></li>
+        </ul>
+        <div class="statement-total"><span>Total</span><strong>A$405</strong></div>
+      </div>
       <p class="statement-foot">One payment, by card in the app.</p>
     </div>
   </div>

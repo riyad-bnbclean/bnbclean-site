@@ -135,6 +135,42 @@
     });
   }
 
+  /* ---- Premium: example weekly statements, computed with the real hourly rates ---- */
+  var statementBody = document.getElementById("statementBody");
+  if (statementBody) {
+    var RATE = { Solo: 50, Duo: 90 }; // A$ per hour, as in the app
+    var STATEMENTS = [
+      [["Mon", "Airbnb Turnover", "Solo", 105], ["Wed", "Airbnb Turnover", "Duo", 150], ["Sat", "Airbnb Turnover", "Solo", 105]],
+      [["Tue", "Deep Clean", "Solo", 180], ["Thu", "Airbnb Turnover", "Solo", 135], ["Sun", "Airbnb Turnover", "Duo", 120]],
+      [["Mon", "Airbnb Turnover", "Solo", 105], ["Tue", "Airbnb Turnover", "Solo", 105], ["Fri", "Airbnb Turnover", "Duo", 180]]
+    ];
+    // Hourly rate × duration, rounded to the nearest 5 dollars (as in the app)
+    var price = function(team, minutes){ return Math.round(RATE[team] * minutes / 60 / 5) * 5; };
+    var dur = function(min){ var h = Math.floor(min / 60), m = min % 60; return h + "h" + (m ? String(m).padStart(2, "0") : ""); };
+    var renderStatement = function(i){
+      var total = 0;
+      var rows = STATEMENTS[i].map(function(job, n){
+        var amount = price(job[2], job[3]);
+        total += amount;
+        return "<li><div>" + job[1] + "<small>" + job[0] + " · " + job[2] + " " + dur(job[3]) + " · Property " + (n + 1) +
+          "</small></div><strong>A$" + amount + "</strong></li>";
+      }).join("");
+      statementBody.innerHTML = '<ul class="statement-rows">' + rows + '</ul><div class="statement-total"><span>Total</span><strong>A$' + total + "</strong></div>";
+    };
+    renderStatement(0);
+    var current = 0;
+    setInterval(function(){
+      if (reduceMotion.matches) { if (current !== 0) { current = 0; renderStatement(0); } return; } // reduced motion: statement 1, fixed
+      if (document.hidden) return;
+      statementBody.classList.add("is-fading");
+      setTimeout(function(){
+        current = (current + 1) % STATEMENTS.length;
+        renderStatement(current);
+        statementBody.classList.remove("is-fading");
+      }, 400);
+    }, 6000);
+  }
+
   /* ---- Waitlist forms (Edge Function "waitlist", body { email, ville }) ---- */
   function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
   function setError(input, msg){

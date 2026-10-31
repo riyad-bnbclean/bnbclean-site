@@ -132,11 +132,12 @@
         </div>
         <div class="field">
           <div class="label-row"><label for="nights">Nights booked per month</label><output id="occupancy" for="nights" aria-live="polite"></output></div>
-          <div class="affix affix-post"><input class="input" id="nights" type="number" inputmode="numeric" min="0" max="31" step="1" autocomplete="off"><b aria-hidden="true">nights</b></div>
+          <div class="affix affix-post"><input class="input" id="nights" type="number" inputmode="numeric" min="0" max="30" step="1" autocomplete="off"><b aria-hidden="true">nights</b></div>
         </div>
         <div class="field">
-          <label for="stay">Average stay length</label>
-          <div class="affix affix-post"><input class="input" id="stay" type="number" inputmode="decimal" min="1" step="0.5" autocomplete="off"><b aria-hidden="true">nights</b></div>
+          <label for="stay">Average length of stay (nights)</label>
+          <div class="affix affix-post"><input class="input" id="stay" type="number" inputmode="decimal" min="1" step="0.5" autocomplete="off" aria-describedby="stay-hint"><b aria-hidden="true">nights</b></div>
+          <p class="form-hint" id="stay-hint">Used to count your turnovers: 18 nights ÷ 3-night stays = 6 cleans.</p>
         </div>
       </fieldset>
       <fieldset>
@@ -357,6 +358,7 @@
     if (mode !== "own") $("cleanCostOut").textContent = "A$" + cleanCost;
 
     var rate = num("rate"), nights = num("nights"), stay = num("stay");
+    if (nights !== null) nights = Math.min(nights, 30); // a month is counted as 30 nights
     $("occupancy").textContent = nights === null ? "" : Math.round(nights / 30 * 100) + "% occupancy";
 
     var fee = num("fee") || 0, guestClean = num("guestClean") || 0;
