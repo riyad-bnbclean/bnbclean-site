@@ -139,11 +139,14 @@ p{text-wrap:pretty}
 @media(min-width:769px){.hero-note{gap:4px 0}.hero-note li:not(:last-child)::after{content:"·";margin:0 10px;opacity:.7}}
 .hero-note a{color:#fff;text-decoration:underline}
 .hero :focus-visible{outline-color:#fff}
-.hero-pause{position:absolute;right:var(--gutter);bottom:20px;width:44px;height:44px;border-radius:999px;
-  display:none;align-items:center;justify-content:center;color:#fff;background:rgba(19,38,26,.45);
-  border:1px solid rgba(255,255,255,.35);transition:background-color .2s}
-.hero-pause:hover{background:rgba(19,38,26,.7)}
+/* Discreet pause control: 36px visual inside a 44px hit area, shown on hover, focus, or briefly on touch */
+.hero-pause{position:absolute;right:calc(var(--gutter) - 4px);bottom:16px;width:44px;height:44px;border-radius:999px;
+  display:none;align-items:center;justify-content:center;color:#fff;opacity:0;transition:opacity .35s var(--ease)}
+.hero-pause::before{content:"";position:absolute;inset:4px;border-radius:999px;background:rgba(19,38,26,.45);transition:background-color .2s}
+.hero-pause svg{position:relative}
+.hero-pause:hover::before{background:rgba(19,38,26,.7)}
 .hero-pause.is-visible{display:inline-flex}
+.hero:hover .hero-pause,.hero-pause:focus-visible,.hero-pause.is-peek{opacity:1}
 .hero-pause .i-play{display:none}
 .hero-pause[aria-pressed="true"] .i-play{display:block}
 .hero-pause[aria-pressed="true"] .i-pause{display:none}
@@ -151,7 +154,7 @@ p{text-wrap:pretty}
   .hero{min-height:max(680px,92vh);align-items:center}
   .hero::before{background:linear-gradient(90deg,rgba(19,38,26,.72) 0%,rgba(19,38,26,.62) 42%,rgba(19,38,26,.28) 70%,rgba(19,38,26,.10) 100%)}
   .hero-inner{padding-top:calc(var(--nav-h) + 48px);padding-bottom:72px}
-  .hero-pause{bottom:28px}
+  .hero-pause{bottom:24px}
 }
 @media(prefers-reduced-motion:reduce){.hero-media video:not(.is-manual){display:none}}
 .hero-play{position:absolute;right:var(--gutter);bottom:20px;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px 0 14px;
@@ -303,9 +306,10 @@ p{text-wrap:pretty}
 .play-badge{display:inline-block;margin-top:12px;padding:9px;margin-left:-9px}
 .play-badge img{display:block;height:36px;width:auto}
 @media(min-width:769px){.play-badge{padding:10px;margin-left:-10px}.play-badge img{height:40px}}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:24px;display:flex;flex-direction:column;gap:8px;font-size:14px;color:rgba(255,255,255,.72)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:24px;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.55;color:rgba(255,255,255,.72)}
+.footer-bottom a{color:inherit}
 .footer :focus-visible{outline-color:#fff}
-@media(min-width:720px){.footer-grid{grid-template-columns:1.4fr 1fr 1fr 1.2fr}.footer-bottom{flex-direction:row;justify-content:space-between}}
+@media(min-width:720px){.footer-grid{grid-template-columns:1.4fr 1fr 1fr 1.2fr}}
 
 /* ---------- WhatsApp ---------- */
 .wa-float{position:fixed;right:16px;bottom:16px;z-index:998;width:56px;height:56px;border-radius:50%;background:#25D366;

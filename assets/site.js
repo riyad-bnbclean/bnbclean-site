@@ -61,6 +61,14 @@
   var userPaused = false;
   var started = false;
 
+  var touchOnly = window.matchMedia("(hover: none)").matches;
+  var peekTimer;
+  function peek(){
+    pauseBtn.classList.add("is-peek");
+    clearTimeout(peekTimer);
+    peekTimer = setTimeout(function(){ pauseBtn.classList.remove("is-peek"); }, 3000);
+  }
+
   function setPaused(paused){
     pauseBtn.setAttribute("aria-pressed", paused ? "true" : "false");
     pauseBtn.setAttribute("aria-label", paused ? "Play background video" : "Pause background video");
@@ -84,11 +92,15 @@
       s.src = s.getAttribute("data-src");
     });
     video.muted = true; // Safari/iOS: autoplay needs the muted property, not only the attribute
+    var peeked = false;
     video.addEventListener("playing", function(){
       video.classList.add("is-playing");
       pauseBtn.classList.add("is-visible");
       setPaused(false);
+      if (!peeked && touchOnly) { peeked = true; peek(); }
     });
+    // Touch screens have no hover: a tap on the hero shows the control again for 3 s
+    if (touchOnly) video.closest(".hero").addEventListener("touchstart", peek, { passive: true });
     video.load();
     var p = video.play();
     if (p && p.catch) p.catch(function(){ /* autoplay refused: the poster stays */ });
