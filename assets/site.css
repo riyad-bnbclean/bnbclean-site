@@ -252,6 +252,14 @@ p{text-wrap:pretty}
 .reviews{display:grid;gap:20px}
 .review{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);padding:28px}
 @media(min-width:820px){.reviews{grid-template-columns:repeat(3,1fr)}}
+.review{display:flex;flex-direction:column;gap:16px;margin:0}
+.review-stars{color:#b5862a;font-size:18px;letter-spacing:.12em;line-height:1}
+.review blockquote{margin:0;flex:1}
+.review blockquote p{color:var(--ink);font-size:17px;line-height:1.6}
+.review figcaption{display:flex;flex-direction:column;gap:2px;padding-top:16px;border-top:1px solid var(--line)}
+.review figcaption strong{font-weight:700;color:var(--ink)}
+.review figcaption span{font-size:14px;color:var(--ink-2)}
+.reviews-more{margin-top:28px}
 
 /* ---------- Area + waitlist ---------- */
 .area-grid{display:grid;gap:48px}
