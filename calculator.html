@@ -55,6 +55,32 @@
 .calc-cta .btn{margin-top:18px}
 .calc-cta .link-arrow{margin-top:6px}
 @media(min-width:960px){.calc{grid-template-columns:1.1fr .9fr;gap:40px}.calc-side{position:sticky;top:calc(var(--nav-h) + 24px)}}
+.label-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}
+.label-row label{margin-bottom:0}
+.label-row output{font-size:14px;font-weight:700;color:var(--green);font-variant-numeric:tabular-nums;white-space:nowrap}
+.select{appearance:none;-webkit-appearance:none;padding-right:44px;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%233d5246' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center}
+.range{width:100%;height:44px;accent-color:var(--green);cursor:pointer}
+.clean-cost{margin-top:4px;font-size:15px;color:var(--ink-2)}
+.clean-cost strong{color:var(--ink);font-weight:800;font-variant-numeric:tabular-nums}
+.calc-form .form-hint{margin-top:8px}
+.adv-toggle{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:28px;font-weight:700;color:var(--green)}
+.adv-toggle:hover span{text-decoration:underline}
+.adv-toggle svg{transition:transform .25s var(--ease)}
+.adv-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.advanced{margin-top:12px;padding-top:24px;box-shadow:inset 0 1px 0 var(--line);display:grid;gap:28px}
+.advanced[hidden]{display:none}
+.advanced h3{font-size:16px;letter-spacing:-.01em}
+.check{display:flex;gap:12px;align-items:flex-start;min-height:44px;cursor:pointer;font-weight:700;font-size:15px;padding-top:10px}
+.check input{width:20px;height:20px;margin-top:1px;flex-shrink:0}
+.detail-grid{display:grid;gap:16px;margin-top:12px}
+@media(min-width:560px){.detail-grid{grid-template-columns:1fr 1fr}}
+.input[readonly]{background:var(--tint);color:var(--ink-2);cursor:default}
+.res-list .pos{color:#a8e6bc}
+.res-list .neg{color:#ffc9b8}
+.res-warn{margin-top:10px;padding:10px 12px;border-radius:12px;background:rgba(255,201,184,.14);color:#ffe0d6;font-size:14px;font-weight:600}
+.res-warn[hidden],.res-list [hidden]{display:none}
 </style>
 </head>
 <body>
@@ -105,12 +131,37 @@
           <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="rate" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
         </div>
         <div class="field">
-          <label for="nights">Nights booked per month</label>
+          <div class="label-row"><label for="nights">Nights booked per month</label><output id="occupancy" for="nights" aria-live="polite"></output></div>
           <div class="affix affix-post"><input class="input" id="nights" type="number" inputmode="numeric" min="0" max="31" step="1" autocomplete="off"><b aria-hidden="true">nights</b></div>
         </div>
         <div class="field">
           <label for="stay">Average stay length</label>
           <div class="affix affix-post"><input class="input" id="stay" type="number" inputmode="decimal" min="1" step="0.5" autocomplete="off"><b aria-hidden="true">nights</b></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Cleaning</legend>
+        <div class="field">
+          <label for="cleanMode">Who cleans</label>
+          <select class="input select" id="cleanMode">
+            <option value="solo">BNB Clean · Solo (A$50/h)</option>
+            <option value="duo">BNB Clean · Duo, 2 cleaners (A$90/h)</option>
+            <option value="own">My own cleaner (enter cost per clean)</option>
+          </select>
+          <p class="form-hint">Solo suits most 1-bedroom places. Duo is two cleaners for larger homes or tight turnarounds.</p>
+        </div>
+        <div class="field" id="durationField">
+          <div class="label-row"><label for="duration">Clean duration</label><output id="durationOut" for="duration">1h45</output></div>
+          <input class="range" id="duration" type="range" min="60" max="330" step="15" value="105" aria-valuetext="1h45">
+          <p class="clean-cost"><strong id="cleanCostOut">A$ —</strong> per clean</p>
+        </div>
+        <div class="field" id="ownCostField" hidden>
+          <label for="cleanCost">Your cleaner's cost per clean</label>
+          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="cleanCost" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
+        </div>
+        <div class="field">
+          <label for="guestClean">Cleaning fee charged to guests, per stay</label>
+          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="guestClean" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
         </div>
       </fieldset>
       <fieldset>
@@ -120,19 +171,63 @@
           <div class="affix affix-post"><input class="input" id="fee" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="3" autocomplete="off"><b aria-hidden="true">%</b></div>
         </div>
         <div class="field">
-          <label for="guestClean">Cleaning fee charged to guests, per stay</label>
-          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="guestClean" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
-        </div>
-        <div class="field">
-          <label for="cleanCost">Cleaning cost per turnover</label>
-          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="cleanCost" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
-        </div>
-        <div class="field">
           <label for="other">Other monthly costs</label>
           <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="other" type="number" inputmode="decimal" min="0" step="1" autocomplete="off" aria-describedby="other-hint"></div>
-          <p class="form-hint" id="other-hint" style="margin-top:6px">Utilities, internet, supplies, insurance, strata, loan or rent.</p>
+          <p class="form-hint" id="other-hint">Utilities, internet, supplies, insurance, strata, loan or rent.</p>
         </div>
       </fieldset>
+
+      <button class="adv-toggle" id="advToggle" type="button" aria-expanded="false" aria-controls="advanced">
+        <span>Advanced options</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 5.5 7 9.5l4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="advanced" id="advanced" hidden>
+        <div class="field" style="margin-top:0">
+          <label for="platform">Platform</label>
+          <select class="input select" id="platform">
+            <option value="3">Airbnb (3%)</option>
+            <option value="15">Booking.com (15%)</option>
+            <option value="10">Stayz (10%)</option>
+            <option value="0">Direct bookings (0%)</option>
+            <option value="other">Other (enter your fee)</option>
+          </select>
+          <p class="form-hint">Fills in the platform fee above. You can still change it.</p>
+        </div>
+        <div>
+          <label class="check"><input type="checkbox" id="gst" aria-describedby="gst-hint"> I'm registered for GST</label>
+          <p class="form-hint" id="gst-hint">Required in Australia above A$75,000 turnover a year.</p>
+        </div>
+        <div>
+          <h3>Detailed costs</h3>
+          <p class="form-hint">Fill any of these and they replace "Other monthly costs".</p>
+          <div class="detail-grid">
+        <div class="field">
+          <label for="linen">Linen and consumables, per stay</label>
+          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="linen" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
+        </div>
+        <div class="field">
+          <label for="power">Power and internet, per month</label>
+          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="power" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
+        </div>
+        <div class="field">
+          <label for="insurance">Insurance, per month</label>
+          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="insurance" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
+        </div>
+        <div class="field">
+          <label for="rates">Council rates, per month</label>
+          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="rates" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
+        </div>
+        <div class="field">
+          <label for="mortgage">Mortgage or rent, per month</label>
+          <div class="affix affix-pre"><b aria-hidden="true">A$</b><input class="input" id="mortgage" type="number" inputmode="decimal" min="0" step="1" autocomplete="off"></div>
+        </div>
+            <div class="field">
+              <label for="mgmt">Management fee</label>
+              <div class="affix affix-post"><input class="input" id="mgmt" type="number" inputmode="decimal" min="0" max="100" step="0.5" autocomplete="off"><b aria-hidden="true">%</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </form>
 
     <div class="calc-side">
@@ -142,11 +237,14 @@
         <p class="big-label">Fill in your numbers to see your result.</p>
         <dl class="res-list">
           <div><dt>Monthly revenue</dt><dd><output id="outRevenue">A$ —</output></dd></div>
+          <div id="gstRow" hidden><dt>GST (10%)</dt><dd><output id="outGst">A$ —</output></dd></div>
           <div><dt>Number of turnovers</dt><dd><output id="outTurnovers">—</output></dd></div>
           <div><dt>Total costs</dt><dd><output id="outCosts">A$ —</output></dd></div>
           <div><dt>Profit per night booked</dt><dd><output id="outPerNight">A$ —</output></dd></div>
+          <div><dt id="marginLabel">Cleaning margin per stay</dt><dd><output id="outMargin">A$ —</output></dd></div>
         </dl>
-        <p class="assume">Assumes one turnover per stay (nights booked ÷ average stay, rounded), with the platform fee taken on nightly revenue plus guest cleaning fees. Before tax.</p>
+        <p class="res-warn" id="marginWarn" hidden>Your guest cleaning fee doesn't cover your cleaning cost.</p>
+        <p class="assume">Assumes one turnover per stay (nights booked ÷ average stay, rounded), occupancy over 30 days, the platform fee and any management fee taken on nightly revenue plus guest cleaning fees, and BNB Clean cleaning cost = hourly rate × duration, rounded as in the app. Before income tax.</p>
       </section>
       <aside class="calc-cta">
         <p>Host in Cairns, Palm Cove or Port Douglas? Book your next clean in three taps.</p>
@@ -201,7 +299,7 @@
     <!-- MENTIONS LÉGALES À VALIDER PAR RIYAD -->
     <div class="footer-bottom">
       <p>BNB Clean is operated by BNB DIGITAL, SAS au capital de 1 000 € · RCS Bobigny 109 183 467 · VAT FR37109183467 · 23 avenue de Verdun, 93150 Le Blanc-Mesnil, France</p>
-      <p>Publication director: Riyad Piarroux · Hosted by Vercel Inc. (<a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a>) · © 2026 BNB DIGITAL. All rights reserved.</p>
+      <p>Publication director: Riyad Piarroux · Hosted by Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA (<a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a>) · © 2026 BNB DIGITAL. All rights reserved.</p>
     </div>
   </div>
 </footer>
@@ -211,60 +309,133 @@
 (function(){
   "use strict";
   // 100% in the browser: no network calls.
-  var ids = ["rate","nights","stay","fee","guestClean","cleanCost","other"];
-  var el = {};
-  ids.forEach(function(id){ el[id] = document.getElementById(id); });
-  var out = {
-    profit: document.getElementById("outProfit"),
-    revenue: document.getElementById("outRevenue"),
-    turnovers: document.getElementById("outTurnovers"),
-    costs: document.getElementById("outCosts"),
-    perNight: document.getElementById("outPerNight")
-  };
+  var RATES = { solo: 50, duo: 90 }; // BNB Clean hourly rates, A$
+  function $(id){ return document.getElementById(id); }
+  var DETAIL = ["linen","power","insurance","rates","mortgage","mgmt"];
   var label = document.querySelector(".big-label");
 
   function num(id){
-    var v = parseFloat(el[id].value);
+    var v = parseFloat($(id).value);
     return isFinite(v) && v >= 0 ? v : null;
   }
   function money(v){
     var s = Math.round(Math.abs(v)).toLocaleString("en-AU");
     return (v < 0 ? "−A$" : "A$") + s;
   }
+  function fmtDuration(min){
+    var h = Math.floor(min / 60), m = min % 60;
+    return h + "h" + (m ? String(m).padStart(2, "0") : "");
+  }
+
+  // Cleaning cost per turnover: hourly rate × duration, rounded to the nearest 5 dollars (as in the app)
+  function cleanCostPerTurnover(){
+    var mode = $("cleanMode").value;
+    if (mode === "own") return num("cleanCost");
+    var hours = parseInt($("duration").value, 10) / 60;
+    return Math.round(RATES[mode] * hours / 5) * 5;
+  }
+
+  function anyDetail(){
+    return DETAIL.some(function(id){ return $(id).value.trim() !== ""; });
+  }
+
+  function setOut(id, text, cls){
+    var el = $(id);
+    el.textContent = text;
+    el.classList.remove("pos", "neg");
+    if (cls) el.classList.add(cls);
+  }
 
   function update(){
-    var rate = num("rate"), nights = num("nights"), stay = num("stay");
-    var fee = num("fee") || 0, guestClean = num("guestClean") || 0;
-    var cleanCost = num("cleanCost") || 0, other = num("other") || 0;
+    var mode = $("cleanMode").value;
+    $("durationField").hidden = mode === "own";
+    $("ownCostField").hidden = mode !== "own";
+    var dur = parseInt($("duration").value, 10);
+    $("durationOut").textContent = fmtDuration(dur);
+    $("duration").setAttribute("aria-valuetext", fmtDuration(dur));
+    var cleanCost = cleanCostPerTurnover();
+    if (mode !== "own") $("cleanCostOut").textContent = "A$" + cleanCost;
 
-    if (rate === null || nights === null || !stay) {
-      out.profit.textContent = "A$ —";
-      out.revenue.textContent = "A$ —";
-      out.turnovers.textContent = "—";
-      out.costs.textContent = "A$ —";
-      out.perNight.textContent = "A$ —";
+    var rate = num("rate"), nights = num("nights"), stay = num("stay");
+    $("occupancy").textContent = nights === null ? "" : Math.round(nights / 30 * 100) + "% occupancy";
+
+    var fee = num("fee") || 0, guestClean = num("guestClean") || 0;
+    var gstOn = $("gst").checked;
+    $("gstRow").hidden = !gstOn;
+
+    var complete = rate !== null && nights !== null && stay;
+    var turnovers = complete ? (nights > 0 ? Math.max(1, Math.round(nights / stay)) : 0) : 0;
+    var revenue = complete ? rate * nights + guestClean * turnovers : 0;
+
+    // Detailed costs replace "Other monthly costs" when any is filled
+    var otherInput = $("other"), other;
+    if (anyDetail()) {
+      other = (num("linen") || 0) * turnovers + (num("power") || 0) + (num("insurance") || 0)
+            + (num("rates") || 0) + (num("mortgage") || 0) + revenue * Math.min(num("mgmt") || 0, 100) / 100;
+      otherInput.readOnly = true;
+      otherInput.value = Math.round(other);
+      $("other-hint").textContent = "Total of your detailed costs (Advanced options).";
+    } else {
+      if (otherInput.readOnly) { otherInput.readOnly = false; otherInput.value = ""; }
+      $("other-hint").textContent = "Utilities, internet, supplies, insurance, strata, loan or rent.";
+      other = num("other") || 0;
+    }
+
+    // Cleaning margin per stay
+    var warn = $("marginWarn");
+    if (cleanCost === null) { setOut("outMargin", "A$ —"); warn.hidden = true; }
+    else {
+      var margin = guestClean - cleanCost;
+      setOut("outMargin", money(margin), margin > 0 ? "pos" : (margin < 0 ? "neg" : null));
+      $("marginLabel").className = margin > 0 ? "pos" : "";
+      warn.hidden = !(margin < 0);
+    }
+
+    if (!complete) {
+      ["outProfit","outRevenue","outGst","outCosts","outPerNight"].forEach(function(id){ setOut(id, "A$ —"); });
+      setOut("outTurnovers", "—");
       label.textContent = "Fill in your nightly rate, nights booked and average stay to see your result.";
       return;
     }
 
-    var turnovers = nights > 0 ? Math.max(1, Math.round(nights / stay)) : 0;
-    var revenue = rate * nights + guestClean * turnovers;
+    var gst = gstOn ? revenue * 0.10 : 0;
     var platform = revenue * Math.min(fee, 100) / 100;
-    var costs = platform + cleanCost * turnovers + other;
-    var profit = revenue - costs;
+    var costs = platform + (cleanCost || 0) * turnovers + other;
+    var profit = revenue - gst - costs;
 
-    out.profit.textContent = money(profit);
-    out.revenue.textContent = money(revenue);
-    out.turnovers.textContent = String(turnovers);
-    out.costs.textContent = money(costs);
-    out.perNight.textContent = nights > 0 ? money(profit / nights) : "A$ —";
-    label.textContent = profit >= 0 ? "Per month, before tax." : "Per month, before tax. Your costs are higher than your revenue.";
+    setOut("outProfit", money(profit));
+    setOut("outRevenue", money(revenue));
+    setOut("outGst", gstOn ? "−" + money(gst) : "A$ —");
+    setOut("outTurnovers", String(turnovers));
+    setOut("outCosts", money(costs));
+    setOut("outPerNight", nights > 0 ? money(profit / nights) : "A$ —");
+    label.textContent = profit >= 0 ? "Per month, before income tax." : "Per month, before income tax. Your costs are higher than your revenue.";
   }
 
-  ids.forEach(function(id){ el[id].addEventListener("input", update); });
-  document.getElementById("calcForm").addEventListener("submit", function(e){ e.preventDefault(); });
+  // Platform presets fill in the fee, which stays editable
+  $("platform").addEventListener("change", function(){
+    if (this.value === "other") { $("fee").focus(); return; }
+    $("fee").value = this.value;
+    update();
+  });
+  $("fee").addEventListener("input", function(){
+    var sel = $("platform");
+    if (sel.value !== "other" && parseFloat(this.value) !== parseFloat(sel.value)) sel.value = "other";
+  });
+
+  // Advanced options: collapsed by default
+  $("advToggle").addEventListener("click", function(){
+    var open = this.getAttribute("aria-expanded") === "true";
+    this.setAttribute("aria-expanded", open ? "false" : "true");
+    $("advanced").hidden = open;
+  });
+
+  $("calcForm").addEventListener("input", update);
+  $("calcForm").addEventListener("change", update);
+  $("calcForm").addEventListener("submit", function(e){ e.preventDefault(); });
   update();
 })();
 </script>
+
 </body>
 </html>

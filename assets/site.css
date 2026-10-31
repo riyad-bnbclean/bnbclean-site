@@ -173,10 +173,10 @@ p{text-wrap:pretty}
 
 /* ---------- How it works ---------- */
 .steps{display:grid;gap:56px}
-.step-shot{aspect-ratio:4/5;border-radius:var(--r-card);background:var(--tint);overflow:hidden;
-  display:flex;align-items:center;justify-content:center;color:var(--ink-2);font-weight:600;font-size:15px}
-.step-shot img{height:88%;width:auto;max-width:86%;object-fit:contain;border-radius:18px;border:1px solid var(--line);
-  box-shadow:0 2px 4px rgba(19,38,26,.06),0 24px 48px -24px rgba(19,38,26,.35)}
+/* Phone frame: the whole screenshot is shown, never cropped */
+.step-shot{width:min(100%,280px);padding:10px;border-radius:28px;background:#13261a;
+  box-shadow:0 2px 4px rgba(19,38,26,.08),0 28px 50px -28px rgba(19,38,26,.55)}
+.step-shot img{display:block;width:100%;height:auto;aspect-ratio:544/1070;object-fit:contain;border-radius:19px;background:#fff}
 .steps-note{margin-top:40px;font-size:14px;color:var(--ink-2);max-width:70ch}
 .step-num{display:block;margin-top:28px;font-size:15px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums}
 .step h3{margin-top:6px;font-size:clamp(22px,2.2vw,26px);letter-spacing:-.025em}
@@ -333,9 +333,8 @@ p{text-wrap:pretty}
 .tool-body .link-arrow{margin-top:4px}
 @media(max-width:819px){
   .steps{gap:32px}
-  .step{display:grid;grid-template-columns:38% 1fr;grid-template-rows:auto auto 1fr;column-gap:20px;align-items:start}
-  .step-shot{grid-row:1/4;aspect-ratio:auto;background:none;border-radius:0}
-  .step-shot img{height:auto;width:100%;max-width:none;border-radius:14px}
+  .step{display:grid;grid-template-columns:42% 1fr;grid-template-rows:auto auto 1fr;column-gap:20px;align-items:start}
+  .step-shot{grid-row:1/4;width:100%}
   .step-num{margin-top:0}
 }
 @media(max-width:400px){.statement{padding:22px}.statement-head b{font-size:18px}}
