@@ -195,7 +195,7 @@
         </div>
         <div>
           <label class="check"><input type="checkbox" id="gst" aria-describedby="gst-hint"> I'm registered for GST</label>
-          <p class="form-hint" id="gst-hint">Required in Australia above A$75,000 turnover a year.</p>
+          <p class="form-hint" id="gst-hint">Required in Australia above A$75,000 turnover a year. Australian prices include GST, so we take 1/11 of your revenue.</p>
         </div>
         <div>
           <h3>Detailed costs</h3>
@@ -237,7 +237,7 @@
         <p class="big-label">Fill in your numbers to see your result.</p>
         <dl class="res-list">
           <div><dt>Monthly revenue</dt><dd><output id="outRevenue">A$ —</output></dd></div>
-          <div id="gstRow" hidden><dt>GST (10%)</dt><dd><output id="outGst">A$ —</output></dd></div>
+          <div id="gstRow" hidden><dt>GST included (1/11)</dt><dd><output id="outGst">A$ —</output></dd></div>
           <div><dt>Number of turnovers</dt><dd><output id="outTurnovers">—</output></dd></div>
           <div><dt>Total costs</dt><dd><output id="outCosts">A$ —</output></dd></div>
           <div><dt>Profit per night booked</dt><dd><output id="outPerNight">A$ —</output></dd></div>
@@ -398,7 +398,7 @@
       return;
     }
 
-    var gst = gstOn ? revenue * 0.10 : 0;
+    var gst = gstOn ? revenue / 11 : 0; // GST included in Australian prices
     var platform = revenue * Math.min(fee, 100) / 100;
     var costs = platform + (cleanCost || 0) * turnovers + other;
     var profit = revenue - gst - costs;
