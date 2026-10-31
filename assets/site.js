@@ -1,7 +1,10 @@
 /* BNB Clean · V2 shared behaviour (no dependencies) */
 (function(){
   "use strict";
-  var WAITLIST_URL = "https://qoyuuwqljkcnfywxtslb.supabase.co/functions/v1/waitlist";
+  // Supabase public (anon / publishable) key: designed to ship in client code, access is enforced server side
+  var SUPABASE_URL = "https://qoyuuwqljkcnfywxtslb.supabase.co";
+  var SUPABASE_ANON_KEY = "sb_publishable_I_YaQOEIYfgUXjYalR5meg_taoPifC3";
+  var WAITLIST_URL = SUPABASE_URL + "/functions/v1/waitlist";
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   /* ---- Nav: solid background once the hero is scrolled past ---- */
@@ -170,6 +173,207 @@
       }, 400);
     }, 6000);
   }
+
+  /* ---- Price estimator (RPC estimer_prix_public). No price is computed or stored here. ---- */
+  var est = document.getElementById("estimator");
+  var fallback = document.getElementById("priceFallback");
+  if (est && fallback) (function(){
+    var RPC_URL = SUPABASE_URL + "/rest/v1/rpc/estimer_prix_public";
+    var TIMEOUT_MS = 4000, DEBOUNCE_MS = 150;
+    var range = document.getElementById("est-duration");
+    var durOut = document.getElementById("est-duration-out");
+    var minOut = document.getElementById("est-min");
+    var maxOut = document.getElementById("est-max");
+    var priceOut = document.getElementById("est-price");
+    var metaOut = document.getElementById("est-meta");
+    var result = est.querySelector(".est-result");
+    var counts = {};
+    var timer = null, controller = null, seq = 0, dead = false;
+
+    // 1.75 -> "1h45", 3.5 -> "3h30", 1 -> "1h"
+    function fmt(h){
+      var m = Math.round(h * 60), hh = Math.floor(m / 60), mm = m % 60;
+      return hh + "h" + (mm ? String(mm).padStart(2, "0") : "");
+    }
+    function spoken(h){
+      var m = Math.round(h * 60), hh = Math.floor(m / 60), mm = m % 60;
+      return hh + (hh === 1 ? " hour" : " hours") + (mm ? " " + mm + " minutes" : "");
+    }
+    function team(){ return est.querySelector("input[name=team]:checked").value; }
+    function paintRange(){
+      var min = +range.min, max = +range.max, v = +range.value;
+      range.style.setProperty("--fill", (max > min ? (v - min) / (max - min) * 100 : 0) + "%");
+      durOut.textContent = fmt(v);
+      range.setAttribute("aria-valuetext", spoken(v));
+    }
+
+    // Steppers (bedrooms, bathrooms)
+    est.querySelectorAll("[data-stepper]").forEach(function(st){
+      var key = st.getAttribute("data-stepper"), min = +st.dataset.min, max = +st.dataset.max, zero = st.dataset.zero;
+      var out = st.querySelector("output"), dec = st.querySelector("[data-step='-1']"), inc = st.querySelector("[data-step='1']");
+      function render(){
+        var v = counts[key];
+        out.textContent = (v === 0 && zero) ? zero : String(v);
+        dec.disabled = v <= min; inc.disabled = v >= max;
+      }
+      counts[key] = +st.dataset.value;
+      render();
+      st.addEventListener("click", function(e){
+        var b = e.target.closest("button[data-step]");
+        if (!b || b.disabled) return;
+        counts[key] = Math.min(max, Math.max(min, counts[key] + +b.dataset.step));
+        render();
+        if (b.disabled) (b === dec ? inc : dec).focus(); // keep keyboard focus inside the stepper
+        schedule(false);
+      });
+    });
+
+    function showFallback(){
+      dead = true;
+      clearTimeout(timer);
+      if (controller) controller.abort();
+      est.hidden = true;
+      fallback.hidden = false;
+    }
+
+    function schedule(withDuration){
+      if (dead) return;
+      clearTimeout(timer);
+      result.setAttribute("aria-busy", "true");
+      timer = setTimeout(function(){ call(withDuration); }, DEBOUNCE_MS);
+    }
+
+    function call(withDuration){
+      if (controller) controller.abort(); // cancel any previous request
+      var ctrl = controller = new AbortController();
+      var id = ++seq, timedOut = false;
+      var t = setTimeout(function(){ timedOut = true; ctrl.abort(); }, TIMEOUT_MS);
+      var body = {
+        p_service: est.querySelector("input[name=service]:checked").value,
+        p_chambres: counts.chambres,
+        p_sdb: counts.sdb,
+        p_duo: team() === "duo"
+      };
+      if (withDuration) body.p_duree = +range.value;
+
+      fetch(RPC_URL, {
+        method: "POST",
+        headers: { "apikey": SUPABASE_ANON_KEY, "Authorization": "Bearer " + SUPABASE_ANON_KEY, "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: ctrl.signal
+      }).then(function(res){
+        return res.json().catch(function(){ return {}; }).then(function(data){ return { res: res, data: data }; });
+      }).then(function(r){
+        clearTimeout(t);
+        if (id !== seq) return; // a newer request is on its way
+        if (r.res.ok && typeof r.data.prix === "number") return render(r.data, !withDuration);
+        // Duration out of the new bounds (e.g. slider moved while the size was changing): recalibrate
+        if (r.res.status === 400 && r.data.hint === "duree_invalide" && withDuration) return call(false);
+        showFallback();
+      }).catch(function(){
+        clearTimeout(t);
+        if (id !== seq && !timedOut) return; // aborted because superseded
+        showFallback(); // network error or > 4 s
+      });
+    }
+
+    function render(d, calibrate){
+      if (calibrate) {
+        range.min = d.duree_min;
+        range.max = d.duree_max;
+        range.value = d.duree_estimee;
+        minOut.textContent = fmt(d.duree_min);
+        maxOut.textContent = fmt(d.duree_max);
+        range.disabled = false;
+      }
+      paintRange();
+      priceOut.textContent = "A$" + d.prix;
+      metaOut.textContent = "for " + fmt(d.duree) + " · " + (team() === "duo" ? "Duo" : "Solo");
+      result.setAttribute("aria-busy", "false");
+    }
+
+    est.addEventListener("change", function(e){
+      if (e.target.name === "service" || e.target.name === "team") schedule(false);
+    });
+    range.addEventListener("input", function(){ paintRange(); schedule(true); });
+    est.addEventListener("submit", function(e){ e.preventDefault(); });
+
+    paintRange();
+    call(false); // first price on arrival: Airbnb Turnover, 1 bedroom, 1 bathroom, Solo
+  })();
+
+  /* ---- Premium request (Edge Function "premium-request") ---- */
+  var pToggle = document.getElementById("premiumToggle");
+  var pPanel = document.getElementById("premiumPanel");
+  var pForm = document.getElementById("premiumForm");
+  if (pToggle && pPanel && pForm) (function(){
+    var closeTimer;
+    function setOpen(open){
+      clearTimeout(closeTimer);
+      pToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) {
+        pPanel.hidden = false;
+        void pPanel.offsetHeight; // start the 200 ms transition from the closed state
+        pPanel.classList.add("is-open");
+      } else {
+        pPanel.classList.remove("is-open");
+        closeTimer = setTimeout(function(){ pPanel.hidden = true; }, reduceMotion.matches ? 0 : 220);
+      }
+    }
+    pToggle.addEventListener("click", function(){ setOpen(pToggle.getAttribute("aria-expanded") !== "true"); });
+
+    var email = document.getElementById("pf-email");
+    var status = pForm.querySelector(".pf-status");
+    var btn = pForm.querySelector("button[type=submit]");
+    var done = document.getElementById("premiumDone");
+    email.addEventListener("input", function(){ setError(email, ""); });
+
+    pForm.addEventListener("submit", async function(e){
+      e.preventDefault();
+      if (btn.disabled) return;
+      var value = email.value.trim();
+      status.textContent = "";
+      if (!isValidEmail(value)) { setError(email, "Please enter a valid email address."); email.focus(); return; }
+      setError(email, "");
+
+      btn.disabled = true;
+      var label = btn.textContent;
+      btn.textContent = "Sending…";
+      var res = null, data = {};
+      try {
+        res = await fetch(SUPABASE_URL + "/functions/v1/premium-request", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prenom: document.getElementById("pf-name").value.trim(),
+            email: value,
+            nb_logements: document.getElementById("pf-count").value,
+            source: "site"
+          })
+        });
+        data = await res.json().catch(function(){ return {}; });
+      } catch (err) { res = null; }
+
+      if (res && res.ok && data.success) {
+        pForm.hidden = true;
+        done.hidden = false;
+        done.focus();
+        return;
+      }
+      if (res && res.status === 400 && data.error === "invalid_email") {
+        setError(email, "Please enter a valid email address.");
+        email.focus();
+      } else if (res && res.status === 429) {
+        status.textContent = "You've already sent a request today. We'll be in touch.";
+        btn.textContent = label;
+        return; // stays disabled: a request is already on file
+      } else {
+        status.innerHTML = 'Something went wrong. Email us at <span class="copy">admin@bnbclean.au</span>';
+      }
+      btn.disabled = false;
+      btn.textContent = label;
+    });
+  })();
 
   /* ---- Waitlist forms (Edge Function "waitlist", body { email, ville }) ---- */
   function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }

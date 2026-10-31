@@ -190,8 +190,44 @@
         <div class="perk"><h3>Same network, same promise</h3><p>Vetted cleaners, instant re-listing.</p></div>
       </div>
       <div class="premium-cta">
-        <a class="btn btn-gold" href="mailto:admin@bnbclean.au?subject=Premium%20access%20request">Request Premium access</a>
+        <button class="btn btn-gold" type="button" id="premiumToggle" aria-expanded="false" aria-controls="premiumPanel">
+          Request Premium access
+          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
         <p>Activated by our team after your first cleans. No extra fee.</p>
+      </div>
+      <div class="premium-panel" id="premiumPanel" hidden>
+        <div class="premium-panel-inner">
+          <form class="premium-form" id="premiumForm" novalidate>
+            <div class="pf-grid">
+              <div class="field">
+                <label for="pf-name">First name <span class="opt">(optional)</span></label>
+                <input class="input" type="text" id="pf-name" name="prenom" autocomplete="given-name" maxlength="80">
+              </div>
+              <div class="field">
+                <label for="pf-email">Email</label>
+                <input class="input" type="email" id="pf-email" name="email" autocomplete="email" placeholder="you@example.com" aria-describedby="pf-email-error" required>
+                <p class="field-error" id="pf-email-error" role="alert"></p>
+              </div>
+              <div class="field">
+                <label for="pf-count">Properties you manage</label>
+                <div class="select-wrap">
+                  <select class="input" id="pf-count" name="nb_logements">
+                    <option value="1">1</option>
+                    <option value="2-5">2-5</option>
+                    <option value="6-20">6-20</option>
+                    <option value="20+">20+</option>
+                  </select>
+                  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-gold" type="submit">Send request</button>
+            <p class="pf-status" role="status" aria-live="polite"></p>
+          </form>
+          <p class="pf-done" id="premiumDone" tabindex="-1" hidden>Thanks! We'll get back to you within one business day.</p>
+          <p class="pf-chat">Prefer to chat? <a href="https://wa.me/61408627402?text=Hi%20BNB%20Clean%2C%20I%20have%20a%20question%20about%20cleaning%20for%20my%20property." target="_blank" rel="noopener">Message us on WhatsApp</a></p>
+        </div>
       </div>
     </div>
     <div class="statement" role="img" aria-label="Example of a Premium weekly statement: three cleans and one total, settled in a single payment.">
@@ -216,20 +252,83 @@
 
 <!-- ============ PRICING ============ -->
 <section class="section" id="pricing">
-  <div class="wrap pricing-grid">
-    <div>
+  <div class="wrap">
+    <div class="section-head">
       <h2>Your price, before you book.</h2>
-      <p class="lead" style="margin-top:20px">No subscription, no hidden fees. Duo option for big places or tight turnarounds. Free cancellation up to 24 hours before.</p>
+      <p class="lead">No subscription, no hidden fees. Duo option for big places or tight turnarounds. Free cancellation up to 24 hours before.</p>
     </div>
-    <div class="price-card">
-      <h3>Airbnb Turnover · 1 bedroom, 1 bathroom</h3>
+
+    <!-- Live estimator: prices come only from the Supabase function estimer_prix_public (assets/site.js) -->
+    <form class="estimator" id="estimator" aria-label="Price estimator" novalidate>
+      <div class="est-controls">
+        <fieldset class="est-field">
+          <legend>Type of clean</legend>
+          <div class="seg seg-4">
+            <label><input type="radio" name="service" value="Airbnb Turnover" checked><span>Airbnb Turnover</span></label>
+            <label><input type="radio" name="service" value="General Cleaning"><span>General Cleaning</span></label>
+            <label><input type="radio" name="service" value="Deep Cleaning"><span>Deep Cleaning</span></label>
+            <label><input type="radio" name="service" value="Garden Maintenance"><span>Garden Maintenance</span></label>
+          </div>
+        </fieldset>
+
+        <div class="est-row">
+          <div class="est-field" role="group" aria-labelledby="est-bed-label">
+            <span class="est-label" id="est-bed-label">Bedrooms</span>
+            <div class="stepper" data-stepper="chambres" data-min="0" data-max="10" data-value="1" data-zero="Studio">
+              <button type="button" data-step="-1" aria-label="Fewer bedrooms"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+              <output aria-live="polite" aria-labelledby="est-bed-label">1</output>
+              <button type="button" data-step="1" aria-label="More bedrooms"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            </div>
+          </div>
+          <div class="est-field" role="group" aria-labelledby="est-bath-label">
+            <span class="est-label" id="est-bath-label">Bathrooms</span>
+            <div class="stepper" data-stepper="sdb" data-min="0" data-max="10" data-value="1">
+              <button type="button" data-step="-1" aria-label="Fewer bathrooms"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+              <output aria-live="polite" aria-labelledby="est-bath-label">1</output>
+              <button type="button" data-step="1" aria-label="More bathrooms"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9M8 3.5v9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <fieldset class="est-field">
+          <legend>Solo or Duo</legend>
+          <div class="seg seg-2">
+            <label><input type="radio" name="team" value="solo" checked aria-describedby="est-team-help"><span>Solo</span></label>
+            <label><input type="radio" name="team" value="duo" aria-describedby="est-team-help"><span>Duo</span></label>
+          </div>
+          <p class="est-help" id="est-team-help">Duo is two cleaners, for larger homes or tight turnarounds.</p>
+        </fieldset>
+
+        <div class="est-field">
+          <div class="est-dur-head">
+            <label class="est-label" for="est-duration">Clean duration</label>
+            <output class="est-dur-value" id="est-duration-out" for="est-duration">–</output>
+          </div>
+          <input class="range" type="range" id="est-duration" min="1" max="3.5" step="0.25" value="1.75" disabled>
+          <div class="est-bounds" aria-hidden="true"><span id="est-min">–</span><span id="est-max">–</span></div>
+        </div>
+      </div>
+
+      <div class="est-result" aria-busy="true">
+        <p class="est-result-label">Your estimate</p>
+        <p class="est-price" aria-live="polite" aria-atomic="true"><span id="est-price">A$&#8202;—</span></p>
+        <p class="est-meta" id="est-meta">&nbsp;</p>
+        <p class="est-note">Estimate from our real pricing. Final price confirmed in the app before you pay.</p>
+        <a class="btn btn-primary" href="https://app.bnbclean.au">Book this clean</a>
+      </div>
+    </form>
+
+    <!-- Fallback, shown by assets/site.js if the estimator can't reach the pricing function (and without JS) -->
+    <div class="price-card" id="priceFallback" hidden>
+      <h3>Airbnb Turnover · 1 bedroom</h3>
       <div class="price-lines">
         <p><span>Solo</span>from A$90</p>
         <p><span>Duo</span>from A$160</p>
       </div>
       <p class="note">Other property sizes and Deep Cleans: exact quote in the app.</p>
-      <a class="btn btn-primary" href="https://app.bnbclean.au">Get my exact price</a>
+      <a class="btn btn-primary" href="https://app.bnbclean.au">See your exact price in the app</a>
     </div>
+    <noscript><style>.estimator{display:none}#priceFallback{display:block!important}</style></noscript>
   </div>
 </section>
 
